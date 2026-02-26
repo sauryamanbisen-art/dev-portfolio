@@ -654,7 +654,7 @@ h3.my-profession
   background-color: var(--bg-black-100);
   border: 1px solid var(--bg-black-50);
   border-radius: 10px;
-  padding: 30px 15px;
+  padding: 30px 35px;
   text-align: center;
   transition: all 0.3s ease;
 }
@@ -700,7 +700,7 @@ h3.my-profession
 {
   font-size: 16px;
   color: var(--text-black-700);
-  line-height: 25px;
+  line-height: 24px;
 }
 /* portfolio */
 .portfolio .container
@@ -718,11 +718,20 @@ h3.my-profession
   color: var(--text-black-900);
   font-weight: 500;
 }
+.sub-heading
+{
+  color: var(--text-black-900);
+}
+.sub-heading p
+{
+  color: var(--text-black-900);
+  font-weight: 400;
+}
 .portfolio .portfolio-item
 {
   flex: 0 0 33.33%;
   max-width: 33.33%;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 .portfolio .portfolio-item-inner
 {
