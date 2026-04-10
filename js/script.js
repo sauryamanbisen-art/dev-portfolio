@@ -14,8 +14,9 @@ const nav = document.querySelector(".nav"),
   for (let i = 0; i<totalNavList; i++) 
   {
   const a = navList[i].querySelector("a")
-  a.addEventListener("click", function () 
+  a.addEventListener("click", function (e) 
   {
+    e.preventDefault();
     removeBackSection();
     for (let j = 0; j < totalNavList; j++)
     {
@@ -66,10 +67,23 @@ const nav = document.querySelector(".nav"),
       }
     }
   }
+  document.querySelector(".btn[href='#about']").addEventListener("click", function(e) 
+  {
+     e.preventDefault();
+     removeBackSection(); 
+     let currentIndex = 0;
+     document.querySelectorAll(".section").forEach((section, index) => {
+       if(section.classList.contains("active")) {
+         currentIndex = index;
+       }
+     });
+     addBackSection(currentIndex);
+     showSection(this);
+     updateNav(this);
+  });
   document.querySelector(".hire-me").addEventListener("click", function()
   {
     const sectionIndex = this.getAttribute("data-section-index");
-    //console.log(sectionIndex);
     showSection(this);
     updateNav(this);
     removeBackSection();
