@@ -13,11 +13,11 @@ const nav = document.querySelector(".nav"),
   totalSection = allSection.length;
   for (let i = 0; i<totalNavList; i++) 
   {
-  const a = navList[i].querySelector("a");
+  const a = navList[i].querySelector("a")
   a.addEventListener("click", function () 
   {
     removeBackSection();
-    for (let j = 0; j < totalNavList; j++) 
+    for (let j = 0; j < totalNavList; j++)
     {
       if(navList[j].querySelector("a").classList.contains("active"))
       {
