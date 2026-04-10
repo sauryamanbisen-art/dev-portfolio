@@ -808,7 +808,7 @@ h3.my-profession
 }
 .contact .contact-form .form-item
 {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .contact .contact-form .form-item .form-control
 {
@@ -832,6 +832,7 @@ h3.my-profession
 }
 .contact .contact-form .btn
 {
+  margin: 5px;
   height: 50px;
   padding: 0 50px;
 }
