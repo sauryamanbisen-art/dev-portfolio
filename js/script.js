@@ -103,6 +103,27 @@ const nav = document.querySelector(".nav"),
   {
     allSection[i].classList.toggle("open");
   }
-}
+  }
+ (function () {
+  emailjs.init("1r-mX1fIHAfMNNmWi");
+  const form = document.getElementById("contact-form");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    emailjs.sendForm(
+      "service_7dzp7p5",
+      "template_ffuv9pj",
+      form
+    )
+    .then(function () {
+      alert("✅ Message Sent Successfully!");
 
+      // ⭐ CLEAR FORM AFTER SUCCESS
+      form.reset();
+    })
+    .catch(function (error) {
+      console.error(error);
+      alert("❌ Failed to send message");
+    });
+  });
+})();
 

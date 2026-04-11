@@ -446,30 +446,30 @@
           <h4 class="contact-sub-title padd-15">I'M VERY RESPONSIVE TO MESSAGES</h4>
           <!-- Contact Form -->
           <div class="row">
-            <div class="contact-form padd-15">
+            <form id="contact-form" class="contact-form padd-15" autocomplete="off">
               <div class="row">
                 <div class="form-item col-6 padd-15">
                   <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Name">
+                    <input type="text" class="form-control" placeholder="Name" name="name">
                   </div>
                 </div>
-                <div class="form-item col-6 padd-15">
+                <div class="form-item col-6 padd-15"> 
                   <div class="form-group">
-                    <input type="Email" class="form-control" placeholder="Email">
+                    <input type="Email" class="form-control" placeholder="Email" name="email">
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="form-item col-12 padd-15">
                   <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Subject">
+                    <input type="text" class="form-control" placeholder="Subject" name="subject">
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="form-item col-12 padd-15">
                   <div class="form-group">
-                    <textarea name="" class="form-control" id="" placeholder="Message"></textarea>
+                    <textarea class="form-control" placeholder="Message" name="message"></textarea>
                   </div>
                 </div>
               </div>
@@ -478,7 +478,7 @@
                     <button type="submit" class="btn">Send Message</button>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </section>
@@ -508,7 +508,11 @@
   <!-- Js File -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js" integrity="sha512-+2pW8xXU/rNr7VS+H62aqapfRpqFwnSQh9ap6THjsm41AxgA0MhFRtfrABS+Lx2KHJn82UOrnBKhjZOXpom2LQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
   <script src="js/script.js"></script>
-  <script src="js/style-switcher.js"></script>
+  <script src="js/style-switcher.js"></script> 
 </body>
 </html>
