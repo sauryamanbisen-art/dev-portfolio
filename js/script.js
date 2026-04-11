@@ -104,26 +104,49 @@ const nav = document.querySelector(".nav"),
     allSection[i].classList.toggle("open");
   }
   }
- (function () {
+(function () {
   emailjs.init("1r-mX1fIHAfMNNmWi");
   const form = document.getElementById("contact-form");
+  const sendBtn = document.getElementById("sendBtn");
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+
+    // validation check
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    // Disable button + show loading
+    sendBtn.disabled = true;
+    sendBtn.innerText = "Sending...";
+
     emailjs.sendForm(
       "service_7dzp7p5",
       "template_ffuv9pj",
       form
     )
-    .then(function () {
-      alert("✅ Message Sent Successfully!");
-
-      // ⭐ CLEAR FORM AFTER SUCCESS
+    .then(() => {
+      sendBtn.innerText = "Message Sent ✅";
       form.reset();
+
+      // enable again after 3 sec
+      setTimeout(() => {
+        sendBtn.disabled = false;
+        sendBtn.innerText = "Send Message";
+      }, 3000);
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.error(error);
+
+      sendBtn.disabled = false;
+      sendBtn.innerText = "Send Message";
+
       alert("❌ Failed to send message");
     });
+
   });
+
 })();
 
