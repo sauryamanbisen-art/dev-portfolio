@@ -70,9 +70,9 @@ Currently working on the frontend part of an AI-based platform.
 
 ## 📬 Connect With Me
 
-* GitHub: *(Add your link here)*
-* LinkedIn: *(Add your link here)*
-* Email: *(Add your email here)*
+* GitHub: *([Add your link here](https://github.com/sauryamanbisen-art))*
+* LinkedIn: *([Add your link here](https://www.linkedin.com/in/sauryaman-bisen-b03188388/))*
+* Email: *(sauryamanbisen@gmail.com)*
 
 ---
 
