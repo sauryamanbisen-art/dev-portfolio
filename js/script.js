@@ -150,3 +150,37 @@ const nav = document.querySelector(".nav"),
 
 })();
 
+window.addEventListener("load", function() {
+  const preloader = document.getElementById("preloader");
+  const preloaderSkeleton = document.getElementById("preloader-skeleton");
+
+  if (preloader) {
+    // Wait 2400ms before starting the preloader spinner fade-out
+    setTimeout(() => {
+      preloader.classList.add("fade-out");
+      setTimeout(() => {
+        preloader.remove();
+        
+        // After preloader is removed, keep skeleton loader visible for another 1200ms
+        setTimeout(() => {
+          if (preloaderSkeleton) {
+            preloaderSkeleton.classList.add("fade-out");
+            setTimeout(() => {
+              preloaderSkeleton.remove();
+            }, 600);
+          }
+        }, 1200);
+        
+      }, 600);
+    }, 2400);
+  } else if (preloaderSkeleton) {
+    // Fallback if main preloader is missing
+    setTimeout(() => {
+      preloaderSkeleton.classList.add("fade-out");
+      setTimeout(() => {
+        preloaderSkeleton.remove();
+      }, 600);
+    }, 1500);
+  }
+});
+
