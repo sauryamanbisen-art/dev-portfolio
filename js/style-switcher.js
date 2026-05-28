@@ -1,4 +1,4 @@
-/* ================= toggle style switcher ================= */
+/* ---------- toggle style switcher ---------- */
 const styleSwitcher = document.querySelector(".style-switcher");
 const styleSwitcherToggle = document.querySelector(".style-switcher-toggler");
 
@@ -15,7 +15,7 @@ if (styleSwitcherToggle && styleSwitcher) {
   });
 }
 
-/* ================= theme colors ================= */
+/* ---------- theme colors ---------- */
 const alternateStyles = document.querySelectorAll(".alternate-style");
 
 function setActiveStyle(color) {
@@ -38,7 +38,7 @@ if (savedColor) {
   setActiveStyle(savedColor);
 }
 
-/* ================= theme light and dark mode ================= */
+/* ---------- theme light and dark mode ---------- */
 const dayNight = document.querySelector(".day-night");
 
 // Function to update the light/dark icon classes
