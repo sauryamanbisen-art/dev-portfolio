@@ -156,37 +156,57 @@ const nav = document.querySelector(".nav"),
 
 })();
 
+let preloaderStarted = false;
+
+// Safety fallback: if the page takes more than 4 seconds to fully trigger the 'load' event,
+// force-start the preloader transition so the user is never stuck on a black screen.
+const fallbackTimeout = setTimeout(() => {
+  startPreloaderTransition();
+}, 4000);
+
 window.addEventListener("load", function() {
+  startPreloaderTransition();
+});
+
+function startPreloaderTransition() {
+  if (preloaderStarted) return;
+  preloaderStarted = true;
+  clearTimeout(fallbackTimeout); // Cancel fallback if it hasn't fired yet
+
   const preloader = document.getElementById("preloader");
   const preloaderSkeleton = document.getElementById("preloader-skeleton");
 
   if (preloader) {
-    // Wait 2400ms before starting the preloader spinner fade-out
+    // Wait 2500ms (2.5 seconds) showing the main spinner logo
     setTimeout(() => {
       preloader.classList.add("fade-out");
+      
+      // After spinner fades out (600ms), transition to the skeleton loader
       setTimeout(() => {
-        preloader.remove();
+        if (preloader) preloader.remove();
         
-        // After preloader is removed, keep skeleton loader visible for another 1200ms
+        // Show skeleton loader for exactly 1500ms (1.5 seconds) to reveal layout structure
         setTimeout(() => {
           if (preloaderSkeleton) {
             preloaderSkeleton.classList.add("fade-out");
             setTimeout(() => {
-              preloaderSkeleton.remove();
+              if (preloaderSkeleton) preloaderSkeleton.remove();
             }, 600);
           }
-        }, 1200);
+        }, 1500);
         
       }, 600);
-    }, 2400);
+    }, 2500);
   } else if (preloaderSkeleton) {
     // Fallback if main preloader is missing
     setTimeout(() => {
-      preloaderSkeleton.classList.add("fade-out");
-      setTimeout(() => {
-        preloaderSkeleton.remove();
-      }, 600);
+      if (preloaderSkeleton) {
+        preloaderSkeleton.classList.add("fade-out");
+        setTimeout(() => {
+          if (preloaderSkeleton) preloaderSkeleton.remove();
+        }, 600);
+      }
     }, 1500);
   }
-});
+}
 
