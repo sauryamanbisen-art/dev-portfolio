@@ -7,10 +7,19 @@ if (styleSwitcherToggle && styleSwitcher) {
     styleSwitcher.classList.toggle("open");
   }); 
 
-  // hide style - switcher on scroll (highly optimized to avoid layout thrashing on every scroll event)
+  // hide style - switcher on scroll (using capture: true to catch inner scrolls on fixed sections)
   window.addEventListener("scroll", () => {
     if (styleSwitcher.classList.contains("open")) {
       styleSwitcher.classList.remove("open");
+    }
+  }, { capture: true });
+
+  // Close style - switcher when clicking anywhere outside of it
+  document.addEventListener("click", (e) => {
+    if (styleSwitcher.classList.contains("open")) {
+      if (!styleSwitcher.contains(e.target)) {
+        styleSwitcher.classList.remove("open");
+      }
     }
   });
 }

@@ -29,10 +29,6 @@ const nav = document.querySelector(".nav"),
     }
     this.classList.add("active")
     showSection(this);
-    if(window.innerWidth < 1200)
-    {
-      asideSectionToggleBtn();
-    }
   })
   }
   function removeBackSection()
@@ -104,6 +100,16 @@ const nav = document.querySelector(".nav"),
     allSection[i].classList.toggle("open");
   }
   }
+
+  // Close aside when clicking outside of it on mobile/tablet view
+  document.addEventListener("click", (e) => {
+    if (window.innerWidth < 1200 && aside.classList.contains("open")) {
+      if (!aside.contains(e.target)) {
+        asideSectionToggleBtn();
+      }
+    }
+  });
+
 (function () {
   emailjs.init("1r-mX1fIHAfMNNmWi");
   const form = document.getElementById("contact-form");
