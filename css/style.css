@@ -28,6 +28,14 @@ body
   outline: none;
   text-decoration: none;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+a, button, i, span, .nav-toggler, .btn, .s-icon
+{
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 ::before,::after
 {
@@ -866,10 +874,6 @@ h3.my-profession
   .section
   {
     left: 0;
-  }
-  .section.open
-  {
-    left: 270px;
   }
   .about .about-content .personal-info .info-item p span
   {
