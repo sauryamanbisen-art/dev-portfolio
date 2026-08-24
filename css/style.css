@@ -350,71 +350,7 @@ h3.my-profession
   color: var(--text-black-700);
 }
 /* socials */
-.socials-container
-{
-  display: flex;
-  gap: 20px;
-}
-.socials-container a
-{
-  background-color: var(--bg-black-100);
-  border-radius: 50%;
-  height: 62px;
-  width: 62px;
-  box-sizing: border-box;
-  flex-shrink: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
-}
-.socials-container a svg, .socials-container a i 
-{
-  font-size: 32px;
-  line-height: 1;
-}
-.socials-container a::before
-{
-  content: attr(data-social);
-  position: absolute;
-  background-color: var(--accent-color);
-  color: white;
-  text-decoration: none;
-  padding: 0.5em 1em;
-  border-radius: 100px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
-  transform: translateY(-30px) rotate(25deg);
-  opacity: 0;
-  transition: 200ms cubic-bezier(.42,0,.44,1.68);
-}
-.socials-container a:hover
-{
-  background-color: var(--accent-color);
-  fill: white;
-  color: white;
-}
-.socials-container a::after
-{
-  content: '';
-  position: absolute;
-  height: 0;
-  width: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 10px solid var(--accent-color);
-  transform: translateY(0) rotate(25deg);
-  opacity: 0;
-  transition: 200ms cubic-bezier(.42,0,.44,1.68);
-}
-.socials-container a:hover::before
-{
-  transform: translateY(-65px) rotate(0);
-  opacity: 1;
-}
-.socials-container a:hover::after{
-  transform: translateY(-42px) rotate(0);
-  opacity: 1;
-}
+/* temp social css placeholder */
 .home .home-img
 {
   flex: 0 0 40%;
