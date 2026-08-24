@@ -381,6 +381,12 @@ h3.my-profession
   font-size: 18px;
   transition: all 0.3s ease;
 }
+.social-btn.linkedin-btn {
+  border-color: rgba(16, 107, 255, 0.7);
+}
+.social-btn.twitter-btn {
+  border-color: rgba(29, 161, 242, 0.7);
+}
 .home .home-img
 {
   flex: 0 0 40%;
