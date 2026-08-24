@@ -350,7 +350,33 @@ h3.my-profession
   color: var(--text-black-700);
 }
 /* socials */
-/* temp social css placeholder */
+.social-links-new
+{
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.social-btn
+{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px; /* px-4 py-2 */
+  background-color: var(--bg-black-100);
+  color: var(--text-black-900);
+  border: 2px solid var(--bg-black-50);
+  border-radius: 6px; /* rounded-md */
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* shadow-xl */
+}
+.social-btn i
+{
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
 .home .home-img
 {
   flex: 0 0 40%;
