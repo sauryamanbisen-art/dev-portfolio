@@ -387,6 +387,19 @@ h3.my-profession
 .social-btn.twitter-btn {
   border-color: rgba(29, 161, 242, 0.7);
 }
+.social-btn.linkedin-btn:hover
+{
+  box-shadow: 0 12px 20px -10px rgba(16, 107, 255, 0.8), 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+.social-btn.github-btn:hover
+{
+  border-color: var(--text-black-900);
+  box-shadow: 0 12px 20px -10px rgba(150, 150, 150, 0.8), 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+.social-btn.twitter-btn:hover
+{
+  box-shadow: 0 12px 20px -10px rgba(29, 161, 242, 0.8), 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
 .home .home-img
 {
   flex: 0 0 40%;
