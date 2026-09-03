@@ -415,7 +415,7 @@ h3.my-profession
   width: 80px;
   border-bottom: 10px solid var(--skin-color);
   border-right: 10px solid var(--skin-color);
-  right: 15px;
+  right: 30px;
   top: 355px;
   bottom: -30px;
 }
@@ -427,7 +427,7 @@ h3.my-profession
   width: 80px;
   border-top: 10px solid var(--skin-color);
   border-left: 10px solid var(--skin-color);
-  left: 15px;
+  left: 30px;
   top: -30px;
 }
 .home .home-img img
