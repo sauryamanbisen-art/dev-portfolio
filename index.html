@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="google-site-verification" content="qL2Si7MkiYhWj_JwSBSmsazDQK-DJ_w3QrXzSRdFBfI" />
@@ -10,6 +11,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/skins/color-01.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
   <!-- Style Switcher -->
   <link rel="stylesheet" href="css/skins/color-01.css" class="alternate-style" title="color-1" disabled>
   <link rel="stylesheet" href="css/skins/color-02.css" class="alternate-style" title="color-2" disabled>
@@ -18,9 +20,19 @@
   <link rel="stylesheet" href="css/skins/color-05.css" class="alternate-style" title="color-5" disabled>
   <link rel="stylesheet" href="css/style-switcher.css">
 </head>
+
 <body>
   <script>
-    (function() {
+    (function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryTheme = urlParams.get("theme");
+      if (queryTheme === "light") {
+        document.body.classList.remove("dark");
+        return;
+      } else if (queryTheme === "dark") {
+        document.body.classList.add("dark");
+        return;
+      }
       const savedMode = localStorage.getItem("theme-mode");
       if (savedMode === "dark") {
         document.body.classList.add("dark");
@@ -103,9 +115,17 @@
         <div class="container">
           <div class="row">
             <div class="home-info padd-15">
-              <h3 class="hello">Hello, My name is <span class="name">Sauryaman Bisen</span></h3>
-              <h3 class="my-profession">I'm a <span class="typing">Web Designer</span></h3>
-              <p>Hi, I'm A computer science student who genuinely enjoys building things that make life a little easier.I'm currently pursuing my degree at PW Institute Of Innovation...</p>
+              <div class="hero-label">WELCOME TO MY PORTFOLIO</div>
+              <h1 class="hero-title">
+                Hello,<br>
+                My name is <span class="accent-text name-font" style="font-size: 1.1em; letter-spacing: 2px;">Sauryaman Bisen</span><br>
+                I'm a <span class="accent-text typing">Web Developer</span>
+              </h1>
+              <p class="hero-description">
+                I'm a Computer Science student who genuinely enjoys building things that make life a little easier. I'm
+                currently pursuing my degree at PW Institute Of Innovation, where I'm learning, creating and exploring
+                the world of technology...
+              </p>
               <!-- Socials-Container Section start here -->
               <div class="social-links-new">
                 <a href="https://www.linkedin.com/in/sauryaman-bisen-b03188388" class="social-btn linkedin-btn">
@@ -119,10 +139,37 @@
                 </a>
               </div>
               <!-- Socials-Container Section End Here -->
-              <a href="#about" class="btn">More About Me</a>
+              <a href="#about" class="btn">More About Me <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+              <div class="hero-quote-card">
+                <div class="quote-icon">“</div>
+                <div class="quote-content">
+                  <p class="quote-text">"Code is not just what I do,<br>it's how I think."</p>
+                  <p class="quote-author">— Sauryaman Bisen</p>
+                </div>
+              </div>
             </div>
             <div class="home-img padd-15">
-              <img src="image/ASCII Art_Saurya.png" alt="">
+              <div class="hero-image-wrapper">
+                <span class="hero-corner corner-tl"></span>
+                <span class="hero-corner corner-br"></span>
+                <div class="hero-image-glow"></div>
+                <div class="hero-image-frame">
+                  <img src="image/ASCII Art_Saurya.png" alt="Sauryaman Bisen" class="hero-portrait">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Section Footer / Progress Indicator (Anchored to right-bottom of Home) -->
+        <div class="section-footer home-progress-footer">
+          <div class="section-progress-indicator" aria-label="Section navigation progress">
+            <div class="progress-count">
+              <span class="current-count">01</span>
+              <span class="count-divider">/</span>
+              <span class="total-count">05</span>
+            </div>
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" style="width: 20%;"></div>
             </div>
           </div>
         </div>
@@ -132,141 +179,320 @@
       <section class="about section" id="about">
         <div class="container">
           <div class="row">
-            <div class="section-title padd-15">
-              <h2>About Me</h2>
+            <div class="about-content padd-15">
+              <!-- Top Row: Left Column (About + Info + Buttons) & Right Column (Tech Stack) -->
+              <div class="about-row-top">
+                <!-- Left Column -->
+                <div class="about-col-left">
+                  <div class="section-title">
+                    <h2>About Me</h2>
+                  </div>
+                  <div class="about-text">
+                    <h3>I'm Sauryaman Bisen and <span>Web Developer</span></h3>
+                    <p>I'm Sauryaman, a dedicated B.Tech CSE student at PW Institute Of Innovation. I enjoy creating
+                      websites, solving problems, and exploring software development. Currently learning full-stack
+                      development, passionate about building creative and impactful web projects, and always excited to
+                      learn and grow. I'm also a strong team player who enjoys collaborating with others to bring ideas
+                      to life.</p>
+                  </div>
+                  <div class="personal-info">
+                    <div class="info-grid">
+                      <div class="info-item">
+                        <p><i class="fa-solid fa-calendar-days info-icon"></i> <strong>Birthday :</strong> <span>2 Jun
+                            2008</span></p>
+                      </div>
+                      <div class="info-item">
+                        <p><i class="fa-solid fa-user info-icon"></i> <strong>Age :</strong> <span>18</span></p>
+                      </div>
+                      <div class="info-item">
+                        <p><i class="fa-solid fa-globe info-icon"></i> <strong>Website :</strong>
+                          <span>www.domain.com</span></p>
+                      </div>
+                      <div class="info-item">
+                        <p><i class="fa-solid fa-envelope info-icon"></i> <strong>Email :</strong>
+                          <span>sauryamanbisen@gmail.com</span></p>
+                      </div>
+                      <div class="info-item">
+                        <p><i class="fa-solid fa-graduation-cap info-icon"></i> <strong>Degree :</strong>
+                          <span>CS</span></p>
+                      </div>
+                      <div class="info-item">
+                        <p><i class="fa-solid fa-phone info-icon"></i> <strong>Phone No :</strong> <span>+91
+                            9529016723</span></p>
+                      </div>
+                      <div class="info-item">
+                        <p><i class="fa-solid fa-location-dot info-icon"></i> <strong>City :</strong> <span>Pune</span>
+                        </p>
+                      </div>
+                      <div class="info-item">
+                        <p><i class="fa-solid fa-star info-icon"></i> <strong>Freelance :</strong>
+                          <span>Available</span></p>
+                      </div>
+                    </div>
+                    <div class="buttons">
+                      <a href="./CV pdf/Sauryaman Bisen - Full Stack Developer.pdf" download="" class="btn btn-cv">
+                        <i class="fa-solid fa-download"></i> Download CV
+                      </a>
+                      <a href="#contact" data-section-index="1" class="btn btn-hire hire-me">
+                        <i class="fa-solid fa-envelope"></i> Hire Me
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Column: Tech Stack Card -->
+                <div class="about-col-right">
+                  <div class="tech-stack-card">
+                    <div class="tech-stack-header">
+                      <span class="tech-stack-icon">&lt;/&gt;</span>
+                      <h3 class="title">Tech Stack</h3>
+                    </div>
+                    <p class="tech-stack-subtitle">Technologies and tools I work with to build modern web applications.
+                    </p>
+
+                    <!-- Frontend -->
+                    <div class="tech-category-card">
+                      <div class="tech-category-label">
+                        <i class="fa-solid fa-desktop"></i>
+                        <span>Frontend</span>
+                      </div>
+                      <div class="tech-grid">
+                        <div class="tech-item">
+                          <i class="devicon-html5-plain colored"></i>
+                          <span>HTML5</span>
+                        </div>
+                        <div class="tech-item">
+                          <i class="devicon-css3-plain colored"></i>
+                          <span>CSS3</span>
+                        </div>
+                        <div class="tech-item">
+                          <i class="devicon-javascript-plain colored"></i>
+                          <span>JavaScript</span>
+                        </div>
+                        <div class="tech-item">
+                          <i class="devicon-react-original colored"></i>
+                          <span>React</span>
+                        </div>
+                        <div class="tech-item">
+                          <i class="devicon-nextjs-plain"></i>
+                          <span>Next.js</span>
+                        </div>
+                        <div class="tech-item">
+                          <i class="devicon-tailwindcss-original colored"></i>
+                          <span>Tailwind CSS</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Backend -->
+                    <div class="tech-category-card">
+                      <div class="tech-category-label">
+                        <i class="fa-solid fa-server"></i>
+                        <span>Backend</span>
+                      </div>
+                      <div class="tech-grid">
+                        <div class="tech-item">
+                          <i class="devicon-java-plain colored"></i>
+                          <span>Java</span>
+                        </div>
+                        <div class="tech-item">
+                          <i class="devicon-python-plain colored"></i>
+                          <span>Python</span>
+                        </div>
+                        <div class="tech-item">
+                          <i class="devicon-spring-original colored"></i>
+                          <span>Spring Boot</span>
+                        </div>
+                        <div class="tech-item">
+                          <i class="devicon-hibernate-plain colored"></i>
+                          <span>Hibernate</span>
+                        </div>
+                        <div class="tech-item">
+                          <svg class="tech-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none">
+                            <ellipse cx="12" cy="5" rx="8" ry="2.8" fill="#cbd5e1" stroke="#94a3b8"
+                              stroke-width="0.8" />
+                            <path d="M4 5v4.5c0 1.55 3.58 2.8 8 2.8s8-1.25 8-2.8V5" fill="#94a3b8" />
+                            <ellipse cx="12" cy="9.5" rx="8" ry="2.8" fill="#cbd5e1" />
+                            <path d="M4 9.5v4.5c0 1.55 3.58 2.8 8 2.8s8-1.25 8-2.8V9.5" fill="#94a3b8" />
+                            <ellipse cx="12" cy="14" rx="8" ry="2.8" fill="#cbd5e1" />
+                            <path d="M4 14v4.5c0 1.55 3.58 2.8 8 2.8s8-1.25 8-2.8V14" fill="#94a3b8" />
+                          </svg>
+                          <span>JDBC</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Programming -->
+                    <div class="tech-category-card">
+                      <div class="tech-category-label">
+                        <i class="fa-solid fa-code"></i>
+                        <span>Programming</span>
+                      </div>
+                      <div class="tech-grid">
+                        <div class="tech-item">
+                          <i class="devicon-cplusplus-plain colored"></i>
+                          <span>C++</span>
+                        </div>
+                        <div class="tech-item">
+                          <i class="devicon-java-plain colored"></i>
+                          <span>Java</span>
+                        </div>
+                        <div class="tech-item">
+                          <i class="devicon-javascript-plain colored"></i>
+                          <span>JavaScript</span>
+                        </div>
+                        <div class="tech-item">
+                          <i class="devicon-python-plain colored"></i>
+                          <span>Python</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Database & Tools Row -->
+                    <div class="tech-category-row">
+                      <div class="tech-category-card">
+                        <div class="tech-category-label">
+                          <i class="fa-solid fa-database"></i>
+                          <span>Database</span>
+                        </div>
+                        <div class="tech-grid">
+                          <div class="tech-item">
+                            <i class="devicon-mysql-plain colored"></i>
+                            <span>MySQL</span>
+                          </div>
+                          <div class="tech-item">
+                            <i class="devicon-postgresql-plain colored"></i>
+                            <span>PostgreSQL</span>
+                          </div>
+                          <div class="tech-item">
+                            <svg class="tech-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none">
+                              <ellipse cx="12" cy="5" rx="8" ry="2.8" fill="#38bdf8" stroke="#0284c7"
+                                stroke-width="0.8" />
+                              <path d="M4 5v4.5c0 1.55 3.58 2.8 8 2.8s8-1.25 8-2.8V5" fill="#0284c7" />
+                              <ellipse cx="12" cy="9.5" rx="8" ry="2.8" fill="#38bdf8" />
+                              <path d="M4 9.5v4.5c0 1.55 3.58 2.8 8 2.8s8-1.25 8-2.8V9.5" fill="#0284c7" />
+                              <ellipse cx="12" cy="14" rx="8" ry="2.8" fill="#38bdf8" />
+                              <path d="M4 14v4.5c0 1.55 3.58 2.8 8 2.8s8-1.25 8-2.8V14" fill="#0284c7" />
+                            </svg>
+                            <span>SQL</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="tech-category-card">
+                        <div class="tech-category-label">
+                          <i class="fa-solid fa-screwdriver-wrench"></i>
+                          <span>Tools</span>
+                        </div>
+                        <div class="tech-grid">
+                          <div class="tech-item">
+                            <i class="devicon-git-plain colored"></i>
+                            <span>Git</span>
+                          </div>
+                          <div class="tech-item">
+                            <i class="devicon-github-original"></i>
+                            <span>GitHub</span>
+                          </div>
+                          <div class="tech-item">
+                            <i class="devicon-vscode-plain colored"></i>
+                            <span>VS Code</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bottom Row: Education & Experience -->
+              <div class="about-row-bottom">
+                <div class="about-bottom-col">
+                  <div class="about-card education-card">
+                    <div class="card-header">
+                      <i class="fa-solid fa-graduation-cap card-header-icon"></i>
+                      <h3 class="card-title">Education</h3>
+                    </div>
+                    <div class="card-timeline">
+                      <div class="timeline-track"></div>
+
+                      <div class="timeline-row">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-body">
+                          <div class="timeline-info">
+                            <span class="timeline-period">2025 - 2029</span>
+                            <h4 class="timeline-name">Degree In Computer Science</h4>
+                            <p class="timeline-sub">PW Institute Of Innovation, Pune (SOT)</p>
+                          </div>
+                          <span class="timeline-pill">B.Tech</span>
+                        </div>
+                      </div>
+
+                      <div class="timeline-row">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-body">
+                          <div class="timeline-info">
+                            <span class="timeline-period">2023 - 2025</span>
+                            <h4 class="timeline-name">12th</h4>
+                            <p class="timeline-sub">Shantabain Manoharbhai Patel Jr College</p>
+                          </div>
+                          <span class="timeline-pill">12th</span>
+                        </div>
+                      </div>
+
+                      <div class="timeline-row">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-body">
+                          <div class="timeline-info">
+                            <span class="timeline-period">2019 - 2023</span>
+                            <h4 class="timeline-name">10th</h4>
+                            <p class="timeline-sub">Jawahar Navodaya Vidyalaya, Gondia</p>
+                          </div>
+                          <span class="timeline-pill">10th</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="about-bottom-col">
+                  <div class="about-card experience-card">
+                    <div class="card-header">
+                      <i class="fa-solid fa-calendar-days card-header-icon"></i>
+                      <h3 class="card-title">Experience</h3>
+                    </div>
+                    <div class="card-timeline">
+                      <div class="timeline-track exp-track"></div>
+                      <div class="timeline-row">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-body">
+                          <div class="timeline-info">
+                            <span class="timeline-period">2024 - Present</span>
+                            <h4 class="timeline-name">Open To Opportunities</h4>
+                            <p class="timeline-sub exp-text">Looking for opportunities to work on exciting projects,
+                              contribute to innovative teams, and grow as a developer.</p>
+                          </div>
+                          <div class="timeline-arrow-btn">
+                            <i class="fa-solid fa-chevron-right"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
-          <div class="row">
-            <div class="about-content padd-15">
-              <div class="row">
-                <div class="about-text padd-15">
-                  <h3>I'm Sauryaman Bisen and <span>Web Developer</span></h3>
-                  <p>I'm Sauryaman, a dedicated B.Tech CSE student at PW Institute Of Innovation.I enjoy creating websites, solving problems, and exploring software development.Currently learning full-stack development, passionate about building creative and impactful web projects, and always excited to learn and grow. I'm also a strong team player who enjoys collaborating with others to bring ideas to life.</p>
-                </div>
+          <!-- Section Footer / Progress Indicator -->
+          <div class="section-footer">
+            <div class="section-progress-indicator" aria-label="Section navigation progress">
+              <div class="progress-count">
+                <span class="current-count">02</span>
+                <span class="count-divider">/</span>
+                <span class="total-count">05</span>
               </div>
-              <div class="row">
-                <div class="personal-info padd-15">
-                  <div class="row">
-                    <div class="info-item padd-15">
-                      <p>Birthday : <span>2 Jun 2008</span></p>
-                    </div>
-                    <div class="info-item padd-15">
-                      <p>Age : <span>18</span></p>
-                    </div>
-                    <div class="info-item padd-15">
-                      <p>Website : <span>www.domain.com</span></p>
-                    </div>
-                    <div class="info-item padd-15">
-                      <p>Email : <span>sauryamanbisen@gmail.com</span></p>
-                    </div>
-                    <div class="info-item padd-15">
-                      <p>Degree : <span>CS</span></p>
-                    </div>
-                    <div class="info-item padd-15">
-                      <p>Phone No : <span>+91 9529016723</span></p>
-                    </div>
-                    <div class="info-item padd-15">
-                      <p>City : <span>Pune</span></p>
-                    </div>
-                    <div class="info-item padd-15">
-                      <p>Freelance : <span>Available</span></p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="buttons padd-15">
-                      <a href="./CV pdf/Sauryaman Bisen - Full Stack Developer.pdf" download="" class="btn">Download CV</a>
-                      <a href="#contact" data-section-index="1" class="btn hire-me">Hire Me</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="skills padd-15">
-                  <div class="row">
-                    <div class="skill-item padd-15">
-                      <h5>JavaScript</h5>
-                      <div class="progress">
-                        <div class="progress-in" style="width: 86%;"></div>
-                        <div class="skill-percent">86%</div>
-                      </div>
-                    </div>
-                    <div class="skill-item padd-15">
-                      <h5>Python</h5>
-                      <div class="progress">
-                        <div class="progress-in" style="width: 85%;"></div>
-                        <div class="skill-percent">85%</div>
-                      </div>
-                    </div>
-                    <div class="skill-item padd-15">
-                      <h5>Java</h5>
-                      <div class="progress">
-                        <div class="progress-in" style="width: 76%;"></div>
-                        <div class="skill-percent">76%</div>
-                      </div>
-                    </div>
-                    <div class="skill-item padd-15">
-                      <h5>SQL</h5>
-                      <div class="progress">
-                        <div class="progress-in" style="width: 70%;"></div>
-                        <div class="skill-percent">70%</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="education padd-15">
-                  <h3 class="title">Education</h3>
-                  <div class="row">
-                    <div class="timeline-box padd-15">
-                      <div class="timeline shadow-dark">
-                        <!-- timeline item -->
-                        <div class="timeline-item">
-                          <div class="circle-dot"></div>
-                          <h3 class="timeline-date">
-                            <i class="fa fa-calendar"></i> 2025 - 2029
-                          </h3>
-                          <h4 class="timeline-title">Degree in Computer Scince</h4>
-                          <p class="timeline-text">I am currently pursuing my B.Tech in Computer Science from PW Institute of Innovation (2025-2029), where I am building strong foundations in programming, data structures, and web development.</p>
-                        </div>
-                        <!-- timeline item -->
-                        <div class="timeline-item">
-                          <div class="circle-dot"></div>
-                          <h3 class="timeline-date">
-                            <i class="fa fa-calendar"></i> 2024 - 2025
-                          </h3>
-                          <h4 class="timeline-title">Higher Secondary Certificate (HSC)</h4>
-                          <p class="timeline-text">I completed my 12th from Shantabain Manoharbhai Patel Junior College, Gondia under the HSC Board, with a focus on the Science stream.</p>
-                        </div>
-                        <!-- timeline item -->
-                        <div class="timeline-item">
-                          <div class="circle-dot"></div>
-                          <h3 class="timeline-date">
-                            <i class="fa fa-calendar"></i> 2022 - 2023
-                          </h3>
-                          <h4 class="timeline-title">Secondary School Certificate (SSC)</h4>
-                          <p class="timeline-text">I completed my 10th from Jawahar Navodaya Vidyalaya, Gondia under the CBSE Board, where I developed strong academic fundamentals and discipline.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="experience padd-15">
-                  <h3 class="title">Experience</h3>
-                  <div class="row">
-                    <div class="timeline-box padd-15">
-                      <div class="timeline shadow-dark">
-                        <!-- timeline item -->
-                        <div class="timeline-item">
-                          <div class="circle-dot"></div>
-                          <h3 class="timeline-date">
-                            <i class="fa fa-calendar"></i> 2024 - Present
-                          </h3>
-                          <h4 class="timeline-title">Open to Opportunities</h4>
-                          <p class="timeline-text">Currently focusing on my academic studies, personal web development projects, and building my portfolio as a Full Stack Developer.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" style="width: 40%;"></div>
               </div>
             </div>
           </div>
@@ -289,33 +515,36 @@
                   <i class="fa fa-mobile-alt"></i>
                 </div>
                 <h4>Web Design</h4>
-                <p>I create responsive, user-friendly, and visually appealing websites that focus on clean layouts, smooth navigation, and great user experience.</p>
+                <p>I create responsive, user-friendly, and visually appealing websites that focus on clean layouts,
+                  smooth navigation, and great user experience.</p>
               </div>
             </div>
             <!-- Service item End -->
-             <!-- Service item Start -->
+            <!-- Service item Start -->
             <div class="service-item padd-15">
               <div class="service-item-inner">
                 <div class="icon">
                   <i class="fa fa-laptop-code"></i>
                 </div>
                 <h4>Frontend Development</h4>
-                <p>I build responsive & interactive websites using HTML, CSS, JavaScript, & modern UI principles to ensure smooth user experience across all devices.</p>
+                <p>I build responsive & interactive websites using HTML, CSS, JavaScript, & modern UI principles to
+                  ensure smooth user experience across all devices.</p>
               </div>
             </div>
             <!-- Service item End -->
-             <!-- Service item Start -->
+            <!-- Service item Start -->
             <div class="service-item padd-15">
               <div class="service-item-inner">
                 <div class="icon">
                   <i class="fa fa-code"></i>
                 </div>
                 <h4>Backend Development</h4>
-                <p>I develop secure and scalable server-side applications using structured logic, efficient database integration, and optimized performance.</p>
+                <p>I develop secure and scalable server-side applications using structured logic, efficient database
+                  integration, and optimized performance.</p>
               </div>
             </div>
             <!-- Service item End -->
-             <!-- Service item Start -->
+            <!-- Service item Start -->
             <div class="service-item padd-15">
               <div class="service-item-inner">
                 <div class="icon">
@@ -326,18 +555,19 @@
               </div>
             </div>
             <!-- Service item End -->
-             <!-- Service item Start -->
+            <!-- Service item Start -->
             <div class="service-item padd-15">
               <div class="service-item-inner">
                 <div class="icon">
                   <i class="fa fa-search"></i>
                 </div>
                 <h4>Web Optimization</h4>
-                <p>I optimize website performance, loading speed, and overall efficiency for better user satisfaction.</p>
+                <p>I optimize website performance, loading speed, and overall efficiency for better user satisfaction.
+                </p>
               </div>
             </div>
             <!-- Service item End -->
-             <!-- Service item Start -->
+            <!-- Service item Start -->
             <div class="service-item padd-15">
               <div class="service-item-inner">
                 <div class="icon">
@@ -348,6 +578,19 @@
               </div>
             </div>
             <!-- Service item End -->
+          </div>
+          <!-- Section Footer / Progress Indicator -->
+          <div class="section-footer">
+            <div class="section-progress-indicator" aria-label="Section navigation progress">
+              <div class="progress-count">
+                <span class="current-count">03</span>
+                <span class="count-divider">/</span>
+                <span class="total-count">05</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" style="width: 60%;"></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -367,63 +610,105 @@
           </div>
           <div class="row">
             <!-- Portfolio item Start -->
-             <div class="portfolio-item padd-15">
+            <div class="portfolio-item padd-15">
               <div class="sub-heading padd-15">
-               <p>Developer Email :-</p>
+                <p>Developer Email :-</p>
               </div>
               <a href="https://sauryamanbisen-art.github.io/Developer-Email/" rel="noopener" target="_blank">
-               <div class="portfolio-item-inner shadow-dark">
-                 <div class="portfolio-img">
-                   <img src="./image/Webpage/Developer Email-image.png" alt="">
-                 </div>
-               </div>
+                <div class="portfolio-item-inner">
+                  <div class="portfolio-img">
+                    <img src="./image/Webpage/Developer Email-image.png" alt="">
+                  </div>
+                </div>
               </a>
-             </div>
+            </div>
             <!-- Portfolio item End -->
 
             <!-- Portfolio item Start -->
             <div class="portfolio-item padd-15">
               <div class="sub-heading padd-15">
-               <p>TripToDhaba :-</p>
+                <p>TripToDhaba :-</p>
               </div>
               <a href="https://sauryamanbisen-art.github.io/TripToDhaba/" rel="noopener" target="_blank">
-              <div class="portfolio-item-inner shadow-dark">
-                <div class="portfolio-img">
-                  <img src="./image/Webpage/TripToDhaba-image.png" alt="">
+                <div class="portfolio-item-inner">
+                  <div class="portfolio-img">
+                    <img src="./image/Webpage/TripToDhaba-image.png" alt="">
+                  </div>
                 </div>
-              </div>
               </a>
             </div>
             <!-- Portfolio item End -->
 
-             <!-- Portfolio item Start -->
+            <!-- Portfolio item Start -->
             <div class="portfolio-item padd-15">
               <div class="sub-heading padd-15">
-               <p>Gym Dashboard :-</p>
+                <p>Gym Dashboard :-</p>
               </div>
               <a href="https://sauryamanbisen-art.github.io/Gym-Members-Dashboard/" rel="noopener" target="_blank">
-              <div class="portfolio-item-inner shadow-dark">
-                <div class="portfolio-img">
-                  <img src="./image/Webpage/Gym Dashboard-image.png" alt="">
+                <div class="portfolio-item-inner">
+                  <div class="portfolio-img">
+                    <img src="./image/Webpage/Gym Dashboard-image.png" alt="">
+                  </div>
                 </div>
-              </div>
               </a>
             </div>
             <!-- Portfolio item End -->
-             <!-- Portfolio item Start -->
+            <!-- Portfolio item Start -->
             <div class="portfolio-item padd-15">
               <div class="sub-heading padd-15">
-               <p>Real Estate :-</p>
+                <p>Real Estate :-</p>
               </div>
               <a href="https://sauryamanbisen-art.github.io/Real-Estate/" rel="noopener" target="_blank">
-              <div class="portfolio-item-inner shadow-dark">
-                <div class="portfolio-img">
-                  <img src="./image/Webpage/Real Estate image.jpg" alt="">
+                <div class="portfolio-item-inner">
+                  <div class="portfolio-img">
+                    <img src="./image/Webpage/Real Estate image.jpg" alt="">
+                  </div>
                 </div>
-              </div>
               </a>
             </div>
             <!-- Portfolio item End -->
+            <!-- Portfolio item Start -->
+            <div class="portfolio-item padd-15">
+              <div class="sub-heading padd-15">
+                <p>Product-Catalog :-</p>
+              </div>
+              <a href="https://sauryamanbisen-art.github.io/Product-Catalog/" rel="noopener" target="_blank">
+                <div class="portfolio-item-inner">
+                  <div class="portfolio-img">
+                    <img src="./image/Webpage/Product-Catalog.png" alt="">
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- Portfolio item End -->
+            <!-- Portfolio item Start -->
+            <div class="portfolio-item padd-15">
+              <div class="sub-heading padd-15">
+                <p>RouteLine-Travelling-Project :-</p>
+              </div>
+              <a href="https://sauryamanbisen-art.github.io/RouteLine-Travelling-Project/" rel="noopener"
+                target="_blank">
+                <div class="portfolio-item-inner">
+                  <div class="portfolio-img">
+                    <img src="./image/Webpage/RouteLine-Travelling-Project.png" alt="">
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- Portfolio item End -->
+          </div>
+          <!-- Section Footer / Progress Indicator -->
+          <div class="section-footer">
+            <div class="section-progress-indicator" aria-label="Section navigation progress">
+              <div class="progress-count">
+                <span class="current-count">04</span>
+                <span class="count-divider">/</span>
+                <span class="total-count">05</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" style="width: 80%;"></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -446,21 +731,21 @@
               <p>+91 9529016723</p>
             </div>
             <!-- Contact info item End -->
-             <!-- Contact info item Start -->
+            <!-- Contact info item Start -->
             <div class="contact-info-item padd-15">
               <div class="icon"><i class="fa fa-location-dot"></i></div>
               <h4>College</h4>
               <p>Pune, India</p>
             </div>
             <!-- Contact info item End -->
-             <!-- Contact info item Start -->
+            <!-- Contact info item Start -->
             <div class="contact-info-item padd-15">
               <div class="icon"><i class="fa fa-envelope"></i></div>
               <h4>Email</h4>
               <p>sauryamanbisen@gmail.com</p>
             </div>
             <!-- Contact info item End -->
-             <!-- Contact info item Start -->
+            <!-- Contact info item Start -->
             <div class="contact-info-item padd-15">
               <div class="icon"><i class="fa fa-globe-asia"></i></div>
               <h4>Website</h4>
@@ -479,7 +764,7 @@
                     <input type="text" class="form-control" placeholder="Name" name="name" required>
                   </div>
                 </div>
-                <div class="form-item col-6 padd-15"> 
+                <div class="form-item col-6 padd-15">
                   <div class="form-group">
                     <input type="Email" class="form-control" placeholder="Email" name="email" required>
                   </div>
@@ -500,8 +785,18 @@
                 </div>
               </div>
               <div class="row">
-                <div class="form-item col-12 padd-15">
-                    <button type="submit" class="btn" id="sendBtn">Send Message</button>
+                <div class="form-item col-12 padd-15 contact-action-wrapper">
+                  <button type="submit" class="btn" id="sendBtn">Send Message</button>
+                  <div class="section-progress-indicator" aria-label="Section navigation progress">
+                    <div class="progress-count">
+                      <span class="current-count">05</span>
+                      <span class="count-divider">/</span>
+                      <span class="total-count">05</span>
+                    </div>
+                    <div class="progress-bar-track">
+                      <div class="progress-bar-fill" style="width: 100%;"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </form>
@@ -513,30 +808,78 @@
     <!-- Main Container End -->
   </div>
   <!-- Main container End -->
-  <!-- Style Switcher Start -->
-  <div class="style-switcher">
-    <div class="style-switcher-toggler s-icon">
-      <i class="fas fa-cog fa-spin"></i>
+  <!-- Theme Controls Start -->
+  <div class="theme-controls">
+    <!-- Dark / Light Mode Pill Toggle -->
+    <div class="theme-mode-pill" id="themeModeToggle" title="Click to toggle Dark / Light mode"
+      aria-label="Toggle theme">
+      <div class="mode-slider"></div>
+      <button type="button" class="mode-btn mode-light" id="modeLightBtn" aria-label="Light Mode">
+        <svg class="mode-icon mode-sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"></circle>
+          <line x1="12" y1="2" x2="12" y2="4"></line>
+          <line x1="12" y1="20" x2="12" y2="22"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+      <button type="button" class="mode-btn mode-dark" id="modeDarkBtn" aria-label="Dark Mode">
+        <svg class="mode-icon mode-moon-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
     </div>
-    <div class="day-night s-icon">
-      <i class="fas "></i>
-    </div>
-    <h4>Theme Colors</h4>
-    <div class="colors">
-      <span class="color-1" onclick="setActiveStyle('color-1')"></span>
-      <span class="color-2" onclick="setActiveStyle('color-2')"></span>
-      <span class="color-3" onclick="setActiveStyle('color-3')"></span>
-      <span class="color-4" onclick="setActiveStyle('color-4')"></span>
-      <span class="color-5" onclick="setActiveStyle('color-5')"></span>
+
+    <!-- Vertical Divider -->
+    <div class="theme-divider"></div>
+
+    <!-- Accent Color Selector Pill & Dropdown -->
+    <div class="accent-picker-wrapper">
+      <button type="button" class="accent-picker-btn" id="accentPickerBtn" aria-label="Accent Color Picker"
+        aria-expanded="false">
+        <span class="accent-halo-circle">
+          <span class="current-accent-dot"></span>
+        </span>
+        <svg class="accent-chevron-svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <!-- Dropdown Popover -->
+      <div class="accent-dropdown" id="accentDropdown">
+        <div class="dropdown-arrow"></div>
+        <div class="dropdown-title">Accent Color</div>
+        <div class="accent-options">
+          <button type="button" class="accent-option color-1 active" data-color="color-1" data-hex="#ec1839"
+            aria-label="Red" style="--swatch-color: #ec1839;"></button>
+          <button type="button" class="accent-option color-2" data-color="color-2" data-hex="#8b5cf6"
+            aria-label="Purple" style="--swatch-color: #8b5cf6;"></button>
+          <button type="button" class="accent-option color-3" data-color="color-3" data-hex="#2563eb" aria-label="Blue"
+            style="--swatch-color: #2563eb;"></button>
+          <button type="button" class="accent-option color-4" data-color="color-4" data-hex="#10b981" aria-label="Green"
+            style="--swatch-color: #10b981;"></button>
+          <button type="button" class="accent-option color-5" data-color="color-5" data-hex="#fa5b0f"
+            aria-label="Orange" style="--swatch-color: #fa5b0f;"></button>
+        </div>
+      </div>
     </div>
   </div>
-  <!-- Style Switcher End -->
+  <!-- Theme Controls End -->
   <!-- Js File -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js" integrity="sha512-+2pW8xXU/rNr7VS+H62aqapfRpqFwnSQh9ap6THjsm41AxgA0MhFRtfrABS+Lx2KHJn82UOrnBKhjZOXpom2LQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"
+    integrity="sha512-+2pW8xXU/rNr7VS+H62aqapfRpqFwnSQh9ap6THjsm41AxgA0MhFRtfrABS+Lx2KHJn82UOrnBKhjZOXpom2LQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
   <script src="js/script.js"></script>
-  <script src="js/style-switcher.js"></script> 
+  <script src="js/style-switcher.js"></script>
 </body>
+
 </html>
