@@ -19,30 +19,24 @@
   <link rel="stylesheet" href="css/skins/color-04.css" class="alternate-style" title="color-4" disabled>
   <link rel="stylesheet" href="css/skins/color-05.css" class="alternate-style" title="color-5" disabled>
   <link rel="stylesheet" href="css/style-switcher.css">
-</head>
-
-<body>
+  <!-- Theme FOUC prevention — runs before first paint -->
   <script>
     (function () {
-      const urlParams = new URLSearchParams(window.location.search);
-      const queryTheme = urlParams.get("theme");
-      if (queryTheme === "light") {
-        document.body.classList.remove("dark");
-        return;
-      } else if (queryTheme === "dark") {
-        document.body.classList.add("dark");
-        return;
-      }
-      const savedMode = localStorage.getItem("theme-mode");
-      if (savedMode === "dark") {
-        document.body.classList.add("dark");
-      } else if (savedMode === "light") {
-        document.body.classList.remove("dark");
-      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add("dark");
+      var d = document.documentElement;
+      var urlParams = new URLSearchParams(window.location.search);
+      var queryTheme = urlParams.get("theme");
+      if (queryTheme === "dark") { d.classList.add("dark"); return; }
+      if (queryTheme === "light") { return; }
+      var saved = localStorage.getItem("theme-mode");
+      if (saved === "dark") { d.classList.add("dark"); }
+      else if (!saved && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        d.classList.add("dark");
       }
     })();
   </script>
+</head>
+
+<body>
   <!-- Preloader Start -->
   <div id="preloader" class="preloader">
     <div class="loader">

@@ -47,26 +47,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 2. Light / Dark Mode Toggle Logic
   function applyThemeMode(isDark) {
+    const root = document.documentElement;
+
+    // Suppress transitions for one paint frame to prevent stagger
+    root.classList.add("theme-switching");
+
     if (isDark) {
-      document.body.classList.add("dark");
+      root.classList.add("dark");
       localStorage.setItem("theme-mode", "dark");
     } else {
-      document.body.classList.remove("dark");
+      root.classList.remove("dark");
       localStorage.setItem("theme-mode", "light");
     }
+
+    // Re-enable transitions after the browser paints the new theme
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        root.classList.remove("theme-switching");
+      });
+    });
   }
 
   if (themeModeToggle) {
     themeModeToggle.addEventListener("click", (e) => {
       e.preventDefault();
-      const isCurrentlyDark = document.body.classList.contains("dark");
+      const isCurrentlyDark = document.documentElement.classList.contains("dark");
       // Clicking anywhere on the toggle pill flips the current mode
       applyThemeMode(!isCurrentlyDark);
     });
   }
 
   // Initial Sync from body class (set in index.html script tag)
-  const isDarkInitial = document.body.classList.contains("dark");
+  const isDarkInitial = document.documentElement.classList.contains("dark");
   applyThemeMode(isDarkInitial);
 
   // 3. Accent Color Dropdown Logic
