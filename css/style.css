@@ -60,7 +60,7 @@ ul
   z-index: 0;
   overflow-y:  auto;
   overflow-x: hidden;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 .section.back-section
 {
@@ -156,7 +156,7 @@ ul
   display: inline-block;
   white-space: nowrap;
   background: var(--skin-color);
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.25s ease;
 }
 .btn:hover
 {
@@ -181,7 +181,7 @@ ul
   justify-content: center;
   align-items: center;
   z-index: 10;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 .aside .logo
 {
@@ -240,7 +240,7 @@ ul
   display: none;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease, left 0.3s ease;
 }
 .aside .nav-toggler span
 {
@@ -1376,7 +1376,7 @@ body:not(.dark) .progress-bar-track
   padding: 10px 25px;
   font-size: 16px;
   color: var(--text-black-700);
-  transition: all 0.3 ease;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .contact .contact-form .form-item .form-control:focus
 {
