@@ -1330,6 +1330,7 @@ html:not(.dark) .portfolio .portfolio-item-inner:hover
   border-color: color-mix(in srgb, var(--skin-color) 32%, #cbd5e1 68%);
   box-shadow: 0 12px 26px -6px rgba(0, 0, 0, 0.08), 0 0 10px -2px color-mix(in srgb, var(--skin-color) 12%, transparent);
 }
+
 /* Project Image — Natural, comfortable aspect ratio */
 .portfolio .portfolio-item-inner .portfolio-img
 {
@@ -1461,9 +1462,130 @@ html:not(.dark) .portfolio .portfolio-desc
 {
   color: #64748b;
 }
+
+/* Action Buttons Container (pinned to bottom with subtle separator) */
+.portfolio .portfolio-actions
+{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+html:not(.dark) .portfolio .portfolio-actions
+{
+  border-top-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Base Project Action Button — Identical Neutral Style for Both Buttons in Idle */
+.portfolio .project-btn
+{
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7.5px 12px;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+  white-space: nowrap;
+}
+html:not(.dark) .portfolio .project-btn
+{
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #334155;
+}
+
+/* GitHub Button — Sleek Neutral Elevate on Hover */
+.portfolio .project-btn.btn-github i.fa-github
+{
+  font-size: 13px;
+}
+.portfolio .project-btn.btn-github i.fa-arrow-right
+{
+  font-size: 10px;
+  opacity: 0.65;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.portfolio .project-btn.btn-github:hover
+{
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -3px rgba(0, 0, 0, 0.4);
+}
+html:not(.dark) .portfolio .project-btn.btn-github:hover
+{
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+.portfolio .project-btn.btn-github:hover i.fa-arrow-right
+{
+  transform: translateX(3px);
+  opacity: 1;
+}
+
+/* Live Website Button — Active Theme Color on Hover */
+.portfolio .project-btn.btn-live i.fa-link
+{
+  font-size: 11px;
+  opacity: 0.85;
+}
+.portfolio .project-btn.btn-live i.fa-arrow-right
+{
+  font-size: 10px;
+  opacity: 0.75;
+  transition: transform 0.2s ease;
+}
+.portfolio .project-btn.btn-live:hover
+{
+  background: color-mix(in srgb, var(--skin-color) 82%, #0d121f 18%) !important;
+  border-color: color-mix(in srgb, var(--skin-color) 78%, transparent) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px -2px color-mix(in srgb, var(--skin-color) 26%, transparent);
+}
+html:not(.dark) .portfolio .project-btn.btn-live:hover
+{
+  background: color-mix(in srgb, var(--skin-color) 78%, #ffffff 22%) !important;
+  border-color: color-mix(in srgb, var(--skin-color) 78%, #ffffff 22%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px -2px color-mix(in srgb, var(--skin-color) 20%, transparent);
+}
+.portfolio .project-btn.btn-live:hover i
+{
+  color: #ffffff;
+}
+.portfolio .project-btn.btn-live:hover i.fa-arrow-right
+{
+  transform: translateX(3px);
+  color: #ffffff;
+}
+
+/* Hide button if URL is empty or broken */
+.portfolio .project-btn[href=""],
+.portfolio .project-btn[href="#"],
+.portfolio .project-btn:not([href])
+{
+  display: none !important;
+}
+
 .portfolio .section-footer
 {
-  padding: 6px 0 10px 0;
+  padding: 10px 0 20px 0;
 }
 /* Unwanted internal overflow restriction removed */
 /* contact */
@@ -1605,6 +1727,10 @@ html:not(.dark) .portfolio .portfolio-desc
 }
 @media (max-width:991px)
 {
+  .portfolio.section
+  {
+    overflow-y: auto;
+  }
   .contact .contact-info-item,
   .portfolio .portfolio-item,
   .service .service-item
@@ -1709,6 +1835,10 @@ html:not(.dark) .portfolio .portfolio-desc
   .tech-category-row
   {
     flex-direction: column;
+  }
+  .portfolio .portfolio-item-inner .portfolio-img
+  {
+    height: 200px;
   }
 }
 
