@@ -59,77 +59,220 @@ if (typingElement) {
     loop: true
   });
 }
-// Aside
+// Aside & Navigation
 const nav = document.querySelector(".nav"),
-  navList = nav.querySelectorAll("li"),
+  navList = nav ? nav.querySelectorAll("li") : [],
   totalNavList = navList.length,
   allSection = document.querySelectorAll(".section"),
-  totalSection = allSection.length;
-  for (let i = 0; i<totalNavList; i++) 
-  {
-  const a = navList[i].querySelector("a")
-  a.addEventListener("click", function (e) 
-  {
-    e.preventDefault();
-    removeBackSection();
-    for (let j = 0; j < totalNavList; j++)
-    {
-      if(navList[j].querySelector("a").classList.contains("active"))
-      {
-        addBackSection(j);
-        // allSection[j].classList.add("back-section");
+  totalSection = allSection.length,
+  aside = document.querySelector(".aside"),
+  navTogglerBtn = document.querySelector(".nav-toggler");
+
+// Section Progress Indicator Index Mapping (01/05 - 05/05)
+const sectionIndexMap = {
+  "home": 1,
+  "about": 2,
+  "services": 3,
+  "portfolio": 4,
+  "contact": 5
+};
+
+let isTransitioning = false;
+
+function navigateToSection(targetId) {
+  if (!targetId) return;
+
+  // Collision guard: ignore rapid clicks while a transition is active
+  if (isTransitioning) return;
+
+  const currentSection = document.querySelector(".section.active");
+  const targetSection = document.getElementById(targetId);
+
+  // If target does not exist or user clicked current active section, do nothing
+  if (!targetSection || currentSection === targetSection) return;
+
+  isTransitioning = true;
+
+  // Determine navigation direction (forward vs backward)
+  const currentIndex = currentSection ? (sectionIndexMap[currentSection.id] || 1) : 1;
+  const targetIndex = sectionIndexMap[targetId] || 1;
+  const isForward = targetIndex >= currentIndex;
+
+  // 1. Immediately update active state on sidebar navigation links for instant feedback
+  for (let i = 0; i < totalNavList; i++) {
+    const link = navList[i].querySelector("a");
+    if (link) {
+      const linkTarget = link.getAttribute("href").replace("#", "");
+      if (linkTarget === targetId) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
       }
-      navList[j].querySelector("a").classList.remove("active");
     }
-    this.classList.add("active")
-    showSection(this);
-    if(window.innerWidth < 1200)
-    {
-      asideSectionToggleBtn();
-    }
-  })
-  }
-  function removeBackSection()
-  {
-    for (let i = 0; i < totalSection; i++) 
-    {
-    allSection[i].classList.remove("back-section");
-    }
-  }
-  function addBackSection(num)
-  {
-    allSection[num].classList.add("back-section");
-  }
-  function showSection(element) 
-  {
-    for (let i = 0; i < totalSection; i++) 
-    {
-      allSection[i].classList.remove("active");
-    }
-    const target = element.getAttribute("href").split("#")[1];
-    const targetSection = document.querySelector("#" + target);
-    if (targetSection) {
-      targetSection.classList.add("active");
-      targetSection.scrollTop = 0;
-    }
-    const themeControls = document.querySelector(".theme-controls");
-    if (themeControls) {
-      themeControls.classList.remove("hidden-on-scroll");
-    }
-    if (history.replaceState) {
-      history.replaceState(null, null, target === "home" ? window.location.pathname + window.location.search : `#${target}`);
-    }
-    syncSectionProgress(target);
   }
 
-  // Section Progress Indicator Synchronization (01/05 - 05/05)
-  const sectionIndexMap = {
-    "home": 1,
-    "about": 2,
-    "services": 3,
-    "portfolio": 4,
-    "contact": 5
+  // 2. Immediately synchronize section progress indicator (e.g. 01/05 -> 02/05)
+  syncSectionProgress(targetId);
+
+  // 3. Close mobile aside drawer if open
+  if (window.innerWidth < 1200 && aside && aside.classList.contains("open")) {
+    asideSectionToggleBtn();
+  }
+
+  // 4. Update browser URL history without causing reload
+  if (history.replaceState) {
+    history.replaceState(null, null, targetId === "home" ? window.location.pathname + window.location.search : `#${targetId}`);
+  }
+
+  // 5. Ensure theme controls pill is visible at top of target section
+  const themeControls = document.querySelector(".theme-controls");
+  if (themeControls) {
+    themeControls.classList.remove("hidden-on-scroll");
+  }
+
+  // Reset scroll position on target section before entrance begins
+  targetSection.scrollTop = 0;
+
+  // Animation class names based on direction
+  const exitClass = isForward ? "section-exit-forward" : "section-exit-backward";
+  const enterClass = isForward ? "section-enter-forward" : "section-enter-backward";
+
+  // Clean lingering animation classes from any other sections
+  allSection.forEach((sec) => {
+    sec.classList.remove(
+      "section-exit-forward",
+      "section-exit-backward",
+      "section-enter-forward",
+      "section-enter-backward",
+      "back-section"
+    );
+    if (sec !== currentSection && sec !== targetSection) {
+      sec.classList.remove("active");
+    }
+  });
+
+  // Apply coordinated exit and enter classes simultaneously
+  if (currentSection) {
+    currentSection.classList.add(exitClass);
+  }
+  targetSection.classList.add(enterClass);
+
+  let transitionFinished = false;
+  const finishTransition = () => {
+    if (transitionFinished) return;
+    transitionFinished = true;
+
+    if (currentSection) {
+      currentSection.classList.remove("active", exitClass);
+    }
+    targetSection.classList.remove(enterClass);
+    targetSection.classList.add("active");
+
+    // Clean all other sections to guarantee pristine final state
+    allSection.forEach((sec) => {
+      if (sec !== targetSection) {
+        sec.classList.remove(
+          "active",
+          "section-exit-forward",
+          "section-exit-backward",
+          "section-enter-forward",
+          "section-enter-backward",
+          "back-section"
+        );
+      }
+    });
+
+    isTransitioning = false;
   };
+
+  const handleAnimationEnd = (e) => {
+    if (e.target === targetSection) {
+      targetSection.removeEventListener("animationend", handleAnimationEnd);
+      finishTransition();
+    }
+  };
+
+  targetSection.addEventListener("animationend", handleAnimationEnd);
+  // Safety timeout fallback (460ms animation + 60ms buffer)
+  setTimeout(finishTransition, 520);
+}
+
+// Direct section display for initial load or deep-link without transition
+function showSectionDirect(targetId) {
+  const targetSection = document.getElementById(targetId);
+  if (!targetSection) return;
+
+  allSection.forEach((sec) => {
+    sec.classList.remove(
+      "active",
+      "section-exit-forward",
+      "section-exit-backward",
+      "section-enter-forward",
+      "section-enter-backward",
+      "back-section"
+    );
+  });
+
+  targetSection.classList.add("active");
+  targetSection.scrollTop = 0;
+
+  for (let i = 0; i < totalNavList; i++) {
+    const link = navList[i].querySelector("a");
+    if (link) {
+      const linkTarget = link.getAttribute("href").replace("#", "");
+      if (linkTarget === targetId) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
+      }
+    }
+  }
+
+  syncSectionProgress(targetId);
+}
+
+// Backward compatibility helpers
+function showSection(element) {
+  if (!element) return;
+  const target = (typeof element === "string") ? element : element.getAttribute("href").split("#")[1];
+  navigateToSection(target);
+}
+
+function removeBackSection() {
+  allSection.forEach((sec) => sec.classList.remove("back-section"));
+}
+
+function addBackSection(num) {
+  if (allSection[num]) allSection[num].classList.add("back-section");
+}
+
+function updateNav(element) {
+  if (!element) return;
+  const target = (typeof element === "string") ? element : element.getAttribute("href").split("#")[1];
+  for (let i = 0; i < totalNavList; i++) {
+    const link = navList[i].querySelector("a");
+    if (link) {
+      const linkTarget = link.getAttribute("href").replace("#", "");
+      if (linkTarget === target) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
+      }
+    }
+  }
+}
+
+// Attach click listeners to sidebar navigation items
+for (let i = 0; i < totalNavList; i++) {
+  const a = navList[i].querySelector("a");
+  if (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      const target = this.getAttribute("href").split("#")[1];
+      navigateToSection(target);
+    });
+  }
+}
 
   function syncSectionProgress(sectionName) {
     if (!sectionName || !sectionIndexMap[sectionName]) {
@@ -171,17 +314,10 @@ const nav = document.querySelector(".nav"),
   // Accurately initialize progress based on the visible active section
   function initProgressIndicator() {
     const hash = window.location.hash.replace("#", "");
-    // If a specific section was linked in the URL hash, navigate to it
+    // If a specific section was linked in the URL hash, navigate to it directly without animation
     if (hash && sectionIndexMap[hash] && hash !== "home") {
-      const targetLink = document.querySelector(`.nav a[href="#${hash}"]`);
-      if (targetLink) {
-        for (let j = 0; j < totalNavList; j++) {
-          navList[j].querySelector("a").classList.remove("active");
-        }
-        targetLink.classList.add("active");
-        showSection(targetLink);
-        return;
-      }
+      showSectionDirect(hash);
+      return;
     }
 
     // Default to the section that has .active in the DOM (Home on initial load)
@@ -251,55 +387,25 @@ const nav = document.querySelector(".nav"),
   window.addEventListener("hashchange", () => {
     const hash = window.location.hash.replace("#", "") || "home";
     if (hash && sectionIndexMap[hash]) {
-      const targetLink = document.querySelector(`.nav a[href="#${hash}"]`);
-      if (targetLink) {
-        targetLink.click();
-      } else {
-        syncSectionProgress(hash);
-      }
+      navigateToSection(hash);
     }
   });
 
-  function updateNav(element)
-  {
-    for(let i=0; i<totalNavList; i++)
-    {
-      navList[i].querySelector("a").classList.remove("active");
-      const target = element.getAttribute("href").split("#")[1];
-      if(target === navList[i].querySelector("a").getAttribute("href").split("#")[1])
-      {
-        navList[i].querySelector("a").classList.add("active");
-      }
-    }
+  // In-page navigation listeners to be wired in next commit
+  document.querySelector(".btn[href='#about']") && document.querySelector(".btn[href='#about']").addEventListener("click", function(e) {
+    e.preventDefault();
+    navigateToSection("about");
+  });
+  document.querySelector(".hire-me") && document.querySelector(".hire-me").addEventListener("click", function(e) {
+    e.preventDefault();
+    navigateToSection("contact");
+  });
+
+  if (navTogglerBtn) {
+    navTogglerBtn.addEventListener("click", () => {
+      asideSectionToggleBtn();
+    });
   }
-  document.querySelector(".btn[href='#about']").addEventListener("click", function(e) 
-  {
-     e.preventDefault();
-     removeBackSection(); 
-     let currentIndex = 0;
-     document.querySelectorAll(".section").forEach((section, index) => {
-       if(section.classList.contains("active")) {
-         currentIndex = index;
-       }
-     });
-     addBackSection(currentIndex);
-     showSection(this);
-     updateNav(this);
-  });
-  document.querySelector(".hire-me").addEventListener("click", function()
-  {
-    const sectionIndex = this.getAttribute("data-section-index");
-    showSection(this);
-    updateNav(this);
-    removeBackSection();
-    addBackSection(sectionIndex);
-  })
-  const navTogglerBtn = document.querySelector(".nav-toggler");
-  aside = document.querySelector(".aside");
-
-  navTogglerBtn.addEventListener("click", () => {
-  asideSectionToggleBtn();
-  });
 
   function asideSectionToggleBtn() {
   aside.classList.toggle("open");
