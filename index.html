@@ -1049,12 +1049,45 @@
                     </div>
                   </div>
 
-                  <!-- Subject Field -->
+                  <!-- Subject Field (Custom Dropdown) -->
                   <div class="input-field-group full-width">
-                    <label class="field-label" for="userSubject">Subject <span class="required-star">*</span></label>
-                    <div class="field-control-wrap">
-                      <i class="fa-solid fa-list-ul field-icon"></i>
-                      <input type="text" id="userSubject" name="subject" class="field-input" placeholder="Subject" required>
+                    <label class="field-label">Subject <span class="required-star">*</span></label>
+                    <input type="hidden" id="userSubject" name="subject">
+                    <div class="custom-select-container" id="subjectSelect">
+                      <div class="custom-select-trigger" tabindex="0">
+                        <i class="fa-solid fa-list-ul field-icon"></i>
+                        <span class="custom-select-value" data-placeholder="true">Select a subject</span>
+                        <i class="fa-solid fa-chevron-down select-chevron"></i>
+                      </div>
+                      <div class="custom-select-options">
+                        <div class="custom-option" data-value="Project Collaboration">
+                          <i class="fa-solid fa-handshake option-icon"></i>
+                          <span>Project Collaboration</span>
+                        </div>
+                        <div class="custom-option" data-value="Freelance Inquiry">
+                          <i class="fa-solid fa-briefcase option-icon"></i>
+                          <span>Freelance Inquiry</span>
+                        </div>
+                        <div class="custom-option" data-value="Job Opportunity">
+                          <i class="fa-solid fa-user-tie option-icon"></i>
+                          <span>Job Opportunity</span>
+                        </div>
+                        <div class="custom-option" data-value="General Discussion">
+                          <i class="fa-regular fa-comments option-icon"></i>
+                          <span>General Discussion</span>
+                        </div>
+                        <div class="custom-option" data-value="Other">
+                          <i class="fa-solid fa-pen option-icon"></i>
+                          <span>Other</span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Other subject text input (shown only when "Other" is selected) -->
+                    <div class="other-subject-wrap" id="otherSubjectWrap" style="display:none;">
+                      <div class="field-control-wrap" style="margin-top: 10px;">
+                        <i class="fa-solid fa-pen-fancy field-icon"></i>
+                        <input type="text" id="otherSubjectInput" class="field-input" placeholder="Type your subject...">
+                      </div>
                     </div>
                   </div>
 
