@@ -391,15 +391,21 @@ for (let i = 0; i < totalNavList; i++) {
     }
   });
 
-  // In-page navigation listeners to be wired in next commit
-  document.querySelector(".btn[href='#about']") && document.querySelector(".btn[href='#about']").addEventListener("click", function(e) {
-    e.preventDefault();
-    navigateToSection("about");
-  });
-  document.querySelector(".hire-me") && document.querySelector(".hire-me").addEventListener("click", function(e) {
-    e.preventDefault();
-    navigateToSection("contact");
-  });
+  const moreAboutBtn = document.querySelector(".btn[href='#about']");
+  if (moreAboutBtn) {
+    moreAboutBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      navigateToSection("about");
+    });
+  }
+
+  const hireMeBtn = document.querySelector(".hire-me");
+  if (hireMeBtn) {
+    hireMeBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      navigateToSection("contact");
+    });
+  }
 
   if (navTogglerBtn) {
     navTogglerBtn.addEventListener("click", () => {
