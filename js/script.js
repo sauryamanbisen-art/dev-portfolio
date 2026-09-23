@@ -339,9 +339,20 @@ const nav = document.querySelector(".nav"),
       return;
     }
 
+    // Validate custom subject dropdown
+    const subjectInput = document.getElementById("userSubject");
+    if (subjectInput && !subjectInput.value) {
+      const selectContainer = document.getElementById("subjectSelect");
+      if (selectContainer) {
+        selectContainer.classList.add("open");
+        selectContainer.querySelector(".custom-select-trigger").focus();
+      }
+      return;
+    }
+
     // Disable button + show loading
     sendBtn.disabled = true;
-    sendBtn.innerText = "Sending...";
+    sendBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Sending...</span>';
 
     emailjs.sendForm(
       "service_7dzp7p5",
@@ -349,20 +360,32 @@ const nav = document.querySelector(".nav"),
       form
     )
     .then(() => {
-      sendBtn.innerText = "Message Sent ✅";
+      sendBtn.innerHTML = '<i class="fa-solid fa-check"></i> <span>Message Sent ✅</span>';
       form.reset();
+
+      // Also reset the custom subject dropdown UI
+      const csVal = document.querySelector(".custom-select-value");
+      const csOpts = document.querySelectorAll(".custom-option");
+      const csHidden = document.getElementById("userSubject");
+      const csOtherWrap = document.getElementById("otherSubjectWrap");
+      const csOtherInput = document.getElementById("otherSubjectInput");
+      if (csVal) { csVal.textContent = "Select a subject"; csVal.setAttribute("data-placeholder", "true"); }
+      csOpts.forEach(function(o) { o.classList.remove("selected"); });
+      if (csHidden) csHidden.value = "";
+      if (csOtherWrap) csOtherWrap.style.display = "none";
+      if (csOtherInput) csOtherInput.value = "";
 
       // enable again after 3 sec
       setTimeout(() => {
         sendBtn.disabled = false;
-        sendBtn.innerText = "Send Message";
+        sendBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span>Send Message</span> <i class="fa-solid fa-arrow-right btn-arrow"></i>';
       }, 3000);
     })
     .catch((error) => {
       console.error(error);
 
       sendBtn.disabled = false;
-      sendBtn.innerText = "Send Message";
+      sendBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span>Send Message</span> <i class="fa-solid fa-arrow-right btn-arrow"></i>';
 
       alert("❌ Failed to send message");
     });
@@ -371,4 +394,94 @@ const nav = document.querySelector(".nav"),
 
 })();
 
+
+/* ==========================================
+   Custom Subject Select Dropdown Logic
+   ========================================== */
+(function () {
+  const container = document.getElementById("subjectSelect");
+  const hiddenInput = document.getElementById("userSubject");
+  const valueDisplay = container ? container.querySelector(".custom-select-value") : null;
+  const options = container ? container.querySelectorAll(".custom-option") : [];
+  const trigger = container ? container.querySelector(".custom-select-trigger") : null;
+  const otherWrap = document.getElementById("otherSubjectWrap");
+  const otherInput = document.getElementById("otherSubjectInput");
+
+  if (!container || !hiddenInput || !valueDisplay || !trigger) return;
+
+  // Toggle dropdown open/close
+  trigger.addEventListener("click", function () {
+    container.classList.toggle("open");
+  });
+
+  // Keyboard support for trigger
+  trigger.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      container.classList.toggle("open");
+    }
+    if (e.key === "Escape") {
+      container.classList.remove("open");
+    }
+  });
+
+  // Option click handler
+  options.forEach(function (opt) {
+    opt.addEventListener("click", function () {
+      const val = opt.getAttribute("data-value");
+
+      // Remove previous selected
+      options.forEach(function (o) { o.classList.remove("selected"); });
+      opt.classList.add("selected");
+
+      // Update display text
+      valueDisplay.textContent = val;
+      valueDisplay.removeAttribute("data-placeholder");
+
+      // Set hidden input value
+      hiddenInput.value = val;
+
+      // Close dropdown
+      container.classList.remove("open");
+
+      // Show/hide other input
+      if (val === "Other") {
+        otherWrap.style.display = "block";
+        otherInput.focus();
+      } else {
+        otherWrap.style.display = "none";
+        otherInput.value = "";
+      }
+    });
+  });
+
+  // Sync other input to hidden field
+  if (otherInput) {
+    otherInput.addEventListener("input", function () {
+      if (hiddenInput.value === "Other" || otherWrap.style.display !== "none") {
+        hiddenInput.value = otherInput.value || "Other";
+      }
+    });
+  }
+
+  // Close on outside click
+  document.addEventListener("click", function (e) {
+    if (!container.contains(e.target)) {
+      container.classList.remove("open");
+    }
+  });
+
+  // Reset handler — when form resets, also reset custom select
+  const form = document.getElementById("contact-form");
+  if (form) {
+    form.addEventListener("reset", function () {
+      valueDisplay.textContent = "Select a subject";
+      valueDisplay.setAttribute("data-placeholder", "true");
+      options.forEach(function (o) { o.classList.remove("selected"); });
+      hiddenInput.value = "";
+      otherWrap.style.display = "none";
+      otherInput.value = "";
+    });
+  }
+})();
 
