@@ -823,91 +823,278 @@
       <!-- Portfolio Section End -->
       <!-- Contact Section Start -->
       <section class="contact section" id="contact">
-        <div class="container">
-          <div class="row">
-            <div class="section-title padd-15">
-              <h2>Contact Me</h2>
-            </div>
-          </div>
-          <h3 class="contact-title padd-15">HAVE YOU ANY QUESTIONS ?</h3>
-          <h4 class="contact-sub-title padd-15">I'M AT YOUR SERVICES</h4>
-          <div class="row">
-            <!-- Contact info item Start -->
-            <div class="contact-info-item padd-15">
-              <div class="icon"><i class="fa fa-phone"></i></div>
-              <h4>Call Us On</h4>
-              <p>+91 9529016723</p>
-            </div>
-            <!-- Contact info item End -->
-            <!-- Contact info item Start -->
-            <div class="contact-info-item padd-15">
-              <div class="icon"><i class="fa fa-location-dot"></i></div>
-              <h4>College</h4>
-              <p>Pune, India</p>
-            </div>
-            <!-- Contact info item End -->
-            <!-- Contact info item Start -->
-            <div class="contact-info-item padd-15">
-              <div class="icon"><i class="fa fa-envelope"></i></div>
-              <h4>Email</h4>
-              <p>sauryamanbisen@gmail.com</p>
-            </div>
-            <!-- Contact info item End -->
-            <!-- Contact info item Start -->
-            <div class="contact-info-item padd-15">
-              <div class="icon"><i class="fa fa-globe-asia"></i></div>
-              <h4>Website</h4>
-              <p>www.domain.com</p>
-            </div>
-            <!-- Contact info item End -->
-          </div>
-          <h3 class="contact-title padd-15">SEND ME AN EMAIL</h3>
-          <h4 class="contact-sub-title padd-15">FEEL FREE TO REACH OUT — I'LL GET BACK TO YOU SOON!</h4>
-          <!-- Contact Form -->
-          <div class="row">
-            <form id="contact-form" class="contact-form padd-15" autocomplete="off">
-              <div class="row">
-                <div class="form-item col-6 padd-15">
-                  <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Name" name="name" required>
-                  </div>
-                </div>
-                <div class="form-item col-6 padd-15">
-                  <div class="form-group">
-                    <input type="Email" class="form-control" placeholder="Email" name="email" required>
-                  </div>
-                </div>
+        <!-- Subtle Ambient Glow Background Orbs -->
+        <div class="contact-bg-orb orb-tr" aria-hidden="true"></div>
+        <div class="contact-bg-orb orb-bl" aria-hidden="true"></div>
+
+        <div class="container contact-container">
+          <div class="contact-grid">
+            <!-- Left Column: Intro & Contact Information Cards -->
+            <div class="contact-col-left">
+              <!-- Eyebrow Pill -->
+              <div class="contact-eyebrow">
+                <span class="eyebrow-dot"></span>
+                <span class="eyebrow-text">LET'S CONNECT</span>
               </div>
-              <div class="row">
-                <div class="form-item col-12 padd-15">
-                  <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Subject" name="subject" required>
-                  </div>
-                </div>
+
+              <!-- Page Title (Retaining exact existing structure, font, size & double underline) -->
+              <div class="section-title">
+                <h2>Contact Me</h2>
               </div>
-              <div class="row">
-                <div class="form-item col-12 padd-15">
-                  <div class="form-group">
-                    <textarea class="form-control" placeholder="Message" name="message" required></textarea>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-item col-12 padd-15 contact-action-wrapper">
-                  <button type="submit" class="btn" id="sendBtn">Send Message</button>
-                  <div class="section-progress-indicator" aria-label="Section navigation progress">
-                    <div class="progress-count">
-                      <span class="current-count">05</span>
-                      <span class="count-divider">/</span>
-                      <span class="total-count">05</span>
+
+              <!-- Intro Supporting Paragraph -->
+              <p class="contact-intro">
+                I'm always open to new opportunities, collaborations and exciting projects. Whether you have a question, a project idea, or just want to say hi — I'd love to hear from you!
+              </p>
+
+              <!-- Contact Cards List -->
+              <div class="contact-cards-list">
+                <!-- Card 1: Phone -->
+                <a href="tel:+919529016723" class="contact-card">
+                  <div class="card-left">
+                    <div class="card-icon-wrap">
+                      <i class="fa-solid fa-phone"></i>
                     </div>
-                    <div class="progress-bar-track">
-                      <div class="progress-bar-fill" style="width: 100%;"></div>
+                    <div class="card-info">
+                      <span class="card-label">Call Us On</span>
+                      <span class="card-value">+91 9529016723</span>
                     </div>
                   </div>
+                  <div class="card-arrow-wrap">
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </div>
+                </a>
+
+                <!-- Card 2: Location / College -->
+                <a href="https://maps.google.com/?q=Pune,India" target="_blank" rel="noopener noreferrer" class="contact-card">
+                  <div class="card-left">
+                    <div class="card-icon-wrap">
+                      <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div class="card-info">
+                      <span class="card-label">College</span>
+                      <span class="card-value">Pune, India</span>
+                    </div>
+                  </div>
+                  <div class="card-arrow-wrap">
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </div>
+                </a>
+
+                <!-- Card 3: Email -->
+                <a href="mailto:sauryamanbisen@gmail.com" class="contact-card">
+                  <div class="card-left">
+                    <div class="card-icon-wrap">
+                      <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="card-info">
+                      <span class="card-label">Email</span>
+                      <span class="card-value">sauryamanbisen@gmail.com</span>
+                    </div>
+                  </div>
+                  <div class="card-arrow-wrap">
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </div>
+                </a>
+
+                <!-- Card 4: Website -->
+                <a href="https://sauryamanbisen-art.github.io/dev-portfolio/" target="_blank" rel="noopener noreferrer" class="contact-card">
+                  <div class="card-left">
+                    <div class="card-icon-wrap">
+                      <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <div class="card-info">
+                      <span class="card-label">Website</span>
+                      <span class="card-value">www.domain.com</span>
+                    </div>
+                  </div>
+                  <div class="card-arrow-wrap">
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </div>
+                </a>
+              </div>
+
+              <!-- Social Links Area -->
+              <div class="contact-social-section">
+                <div class="contact-social-divider">
+                  <span class="divider-line"></span>
+                  <span class="divider-label">FOLLOW ME</span>
+                  <span class="divider-line"></span>
+                </div>
+                <div class="contact-social-links">
+                  <a href="https://www.linkedin.com/in/sauryaman-bisen-b03188388" target="_blank" rel="noopener noreferrer" class="contact-social-btn" aria-label="LinkedIn">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                  </a>
+                  <a href="https://github.com/sauryamanbisen-art" target="_blank" rel="noopener noreferrer" class="contact-social-btn" aria-label="GitHub">
+                    <i class="fa-brands fa-github"></i>
+                  </a>
+                  <a href="https://x.com/SauryamanBisen" target="_blank" rel="noopener noreferrer" class="contact-social-btn" aria-label="Twitter / X">
+                    <i class="fa-brands fa-x-twitter"></i>
+                  </a>
+                  <a href="https://www.instagram.com/saurya_man/" target="_blank" rel="noopener noreferrer" class="contact-social-btn" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                  </a>
                 </div>
               </div>
-            </form>
+            </div>
+
+            <!-- Right Column: Decorative Art & Form Panel -->
+            <div class="contact-col-right">
+              <!-- Top Decorative Floating Graphic -->
+              <div class="contact-hero-art">
+                <div class="envelope-art-container">
+                  <!-- Orbital Rings & Glowing Dots -->
+                  <svg class="orbit-svg" viewBox="0 0 340 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="var(--skin-color)" stop-opacity="0.6"/>
+                        <stop offset="50%" stop-color="var(--skin-color)" stop-opacity="0.15"/>
+                        <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.4"/>
+                      </linearGradient>
+                      <filter id="neonBlur" x="-30%" y="-30%" width="160%" height="160%">
+                        <feGaussianBlur stdDeviation="6" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                      </filter>
+                    </defs>
+
+                    <!-- Large Outer Orbit Ellipse -->
+                    <ellipse cx="170" cy="90" rx="145" ry="55" transform="rotate(-14 170 90)" stroke="url(#orbitGrad)" stroke-width="1.2" stroke-dasharray="4 4" opacity="0.75" />
+                    <!-- Inner Orbit Ring -->
+                    <ellipse cx="170" cy="90" rx="120" ry="42" transform="rotate(-10 170 90)" stroke="url(#orbitGrad)" stroke-width="1" opacity="0.45" />
+
+                    <!-- Orbiting Glowing Dots -->
+                    <circle cx="50" cy="65" r="3.5" fill="var(--skin-color)" filter="url(#neonBlur)" />
+                    <circle cx="280" cy="115" r="3" fill="#60a5fa" filter="url(#neonBlur)" />
+                    <circle cx="230" cy="45" r="2.5" fill="var(--skin-color)" />
+                  </svg>
+
+                  <!-- 3D Glowing Glass Envelope -->
+                  <div class="floating-glass-envelope">
+                    <svg class="envelope-svg" viewBox="0 0 160 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <linearGradient id="envBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stop-color="rgba(30, 27, 75, 0.85)" />
+                          <stop offset="100%" stop-color="rgba(15, 23, 42, 0.95)" />
+                        </linearGradient>
+                        <linearGradient id="envFlapGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stop-color="rgba(49, 46, 129, 0.75)" />
+                          <stop offset="100%" stop-color="rgba(24, 24, 55, 0.85)" />
+                        </linearGradient>
+                      </defs>
+
+                      <!-- Envelope Main Back Body -->
+                      <polygon points="10,25 150,25 150,95 10,95" fill="url(#envBodyGrad)" stroke="var(--skin-color)" stroke-width="1.6" stroke-linejoin="round" class="env-outline" />
+                      
+                      <!-- Internal letter folds -->
+                      <line x1="10" y1="95" x2="68" y2="55" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.2" />
+                      <line x1="150" y1="95" x2="92" y2="55" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.2" />
+
+                      <!-- Envelope Flap Down Fold -->
+                      <polygon points="10,25 80,68 150,25" fill="url(#envFlapGrad)" stroke="var(--skin-color)" stroke-width="1.8" stroke-linejoin="round" class="env-flap-outline" />
+
+                      <!-- Center Snap Button on Flap -->
+                      <circle cx="80" cy="56" r="3.5" fill="var(--skin-color)" />
+                    </svg>
+
+                    <!-- Floating Paper Plane Badge at top-left of envelope -->
+                    <div class="env-floating-badge">
+                      <i class="fa-solid fa-paper-plane"></i>
+                    </div>
+                  </div>
+
+                  <!-- Script Calligraphy Text Beside Envelope -->
+                  <div class="contact-script-card">
+                    <span class="script-word">Let's</span>
+                    <span class="script-word">Create</span>
+                    <span class="script-word">Something</span>
+                    <span class="script-word highlight">Great</span>
+                    <svg class="script-swoosh" viewBox="0 0 90 12" fill="none">
+                      <path d="M2 3C25 11 65 11 88 3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Glassmorphic "Send Me a Message" Form Card -->
+              <div class="contact-form-panel">
+                <div class="form-panel-header">
+                  <div class="header-icon-glow">
+                    <i class="fa-solid fa-paper-plane"></i>
+                  </div>
+                  <div class="header-text-group">
+                    <h3 class="form-heading">Send Me a Message</h3>
+                    <p class="form-subheading">Fill out the form below and I'll get back to you as soon as possible.</p>
+                  </div>
+                </div>
+
+                <form id="contact-form" class="contact-redesign-form" autocomplete="off">
+                  <!-- Name & Email Row -->
+                  <div class="form-inputs-row">
+                    <!-- Name Field -->
+                    <div class="input-field-group">
+                      <label class="field-label" for="userName">Name <span class="required-star">*</span></label>
+                      <div class="field-control-wrap">
+                        <i class="fa-regular fa-user field-icon"></i>
+                        <input type="text" id="userName" name="name" class="field-input" placeholder="Your name" required>
+                      </div>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="input-field-group">
+                      <label class="field-label" for="userEmail">Email <span class="required-star">*</span></label>
+                      <div class="field-control-wrap">
+                        <i class="fa-regular fa-envelope field-icon"></i>
+                        <input type="email" id="userEmail" name="email" class="field-input" placeholder="your@email.com" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Subject Field -->
+                  <div class="input-field-group full-width">
+                    <label class="field-label" for="userSubject">Subject <span class="required-star">*</span></label>
+                    <div class="field-control-wrap">
+                      <i class="fa-solid fa-list-ul field-icon"></i>
+                      <input type="text" id="userSubject" name="subject" class="field-input" placeholder="Subject" required>
+                    </div>
+                  </div>
+
+                  <!-- Message Field -->
+                  <div class="input-field-group full-width">
+                    <label class="field-label" for="userMessage">Message <span class="required-star">*</span></label>
+                    <div class="field-control-wrap textarea-wrap">
+                      <i class="fa-regular fa-comment-dots field-icon"></i>
+                      <textarea id="userMessage" name="message" class="field-input field-textarea" placeholder="Type your message here..." rows="4" required></textarea>
+                    </div>
+                  </div>
+
+                  <!-- Submit Action Button -->
+                  <button type="submit" class="contact-send-btn" id="sendBtn">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Send Message</span>
+                    <i class="fa-solid fa-arrow-right btn-arrow"></i>
+                  </button>
+                </form>
+              </div>
+
+              <!-- Bottom Right Subtle Footer Decoration & Section Progress Indicator -->
+              <div class="contact-section-footer">
+                <div class="get-in-touch-badge">
+                  <span class="git-line"></span>
+                  <span class="git-text">GET IN TOUCH</span>
+                  <span class="git-line"></span>
+                </div>
+                <div class="section-progress-indicator" aria-label="Section navigation progress">
+                  <div class="progress-count">
+                    <span class="current-count">05</span>
+                    <span class="count-divider">/</span>
+                    <span class="total-count">05</span>
+                  </div>
+                  <div class="progress-bar-track">
+                    <div class="progress-bar-fill" style="width: 100%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
