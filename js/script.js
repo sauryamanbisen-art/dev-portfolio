@@ -93,6 +93,11 @@ function navigateToSection(targetId) {
 
   isTransitioning = true;
 
+  // Cleanly reset any active card hover states and indicators
+  if (typeof resetAllHoverTrackers === "function") {
+    resetAllHoverTrackers();
+  }
+
   // Determine navigation direction (forward vs backward)
   const currentIndex = currentSection ? (sectionIndexMap[currentSection.id] || 1) : 1;
   const targetIndex = sectionIndexMap[targetId] || 1;
@@ -201,6 +206,10 @@ function navigateToSection(targetId) {
 function showSectionDirect(targetId) {
   const targetSection = document.getElementById(targetId);
   if (!targetSection) return;
+
+  if (typeof resetAllHoverTrackers === "function") {
+    resetAllHoverTrackers();
+  }
 
   allSection.forEach((sec) => {
     sec.classList.remove(
@@ -596,4 +605,218 @@ for (let i = 0; i < totalNavList; i++) {
     });
   }
 })();
+
+/* ==========================================================================
+   Smooth Cursor-Move Hover Interaction Engine (Portfolio & Services)
+   ========================================================================== */
+const hoverTrackers = [];
+
+function resetAllHoverTrackers() {
+  hoverTrackers.forEach((tracker) => {
+    if (tracker && typeof tracker.reset === "function") {
+      tracker.reset();
+    }
+  });
+}
+
+function initSmoothHoverTracker({
+  container,
+  itemSelector,
+  innerSelector,
+  indicatorClass,
+  elevateOnHover = false,
+  elevationPx = 4
+}) {
+  if (!container) return null;
+
+  const items = Array.from(container.querySelectorAll(itemSelector));
+  if (items.length === 0) return null;
+
+  // Touch device guard: only activate smooth cursor tracking for devices with a fine pointer (mouse/trackpad)
+  const isFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (!isFinePointer) return null;
+
+  // Ensure container establishes a positioning context
+  const compPos = window.getComputedStyle(container).position;
+  if (compPos === "static") {
+    container.style.position = "relative";
+  }
+
+  // Create or reuse indicator element
+  let indicator = container.querySelector(`.${indicatorClass}`);
+  if (!indicator) {
+    indicator = document.createElement("div");
+    indicator.className = `smooth-hover-indicator ${indicatorClass}`;
+    indicator.setAttribute("aria-hidden", "true");
+    container.appendChild(indicator);
+  }
+
+  let activeItem = null;
+  let isInside = false;
+  let leaveTimeout = null;
+  let rafId = null;
+
+  function getCardBounds(item) {
+    const cardInner = item.querySelector(innerSelector);
+    if (!cardInner) return null;
+
+    const containerRect = container.getBoundingClientRect();
+    const itemRect = item.getBoundingClientRect();
+
+    const compItem = window.getComputedStyle(item);
+    const padLeft = parseFloat(compItem.paddingLeft) || 0;
+    const padTop = parseFloat(compItem.paddingTop) || 0;
+
+    const x = (itemRect.left - containerRect.left) + padLeft;
+    const y = (itemRect.top - containerRect.top) + padTop + (elevateOnHover ? -elevationPx : 0);
+    const width = cardInner.offsetWidth;
+    const height = cardInner.offsetHeight;
+
+    return { x, y, width, height };
+  }
+
+  function updateIndicator(item, immediate = false) {
+    const bounds = getCardBounds(item);
+    if (!bounds) return;
+
+    if (immediate) {
+      indicator.style.transition = "none";
+      indicator.style.transform = `translate3d(${bounds.x}px, ${bounds.y}px, 0)`;
+      indicator.style.width = `${bounds.width}px`;
+      indicator.style.height = `${bounds.height}px`;
+      // Force synchronous reflow so subsequent transition changes animate smoothly
+      void indicator.offsetWidth;
+      indicator.style.transition = "";
+    } else {
+      indicator.style.transform = `translate3d(${bounds.x}px, ${bounds.y}px, 0)`;
+      indicator.style.width = `${bounds.width}px`;
+      indicator.style.height = `${bounds.height}px`;
+    }
+  }
+
+  function activate(item) {
+    if (!item) return;
+    if (leaveTimeout) {
+      clearTimeout(leaveTimeout);
+      leaveTimeout = null;
+    }
+
+    const isNewEntry = !isInside;
+    isInside = true;
+
+    // Remove active class from previous item if switching
+    if (activeItem && activeItem !== item) {
+      const prevInner = activeItem.querySelector(innerSelector);
+      if (prevInner) prevInner.classList.remove("hover-active");
+    }
+
+    activeItem = item;
+    const inner = item.querySelector(innerSelector);
+    if (inner) inner.classList.add("hover-active");
+
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      updateIndicator(item, isNewEntry);
+      indicator.style.opacity = "1";
+    });
+  }
+
+  function deactivate() {
+    isInside = false;
+    indicator.style.opacity = "0";
+    if (activeItem) {
+      const inner = activeItem.querySelector(innerSelector);
+      if (inner) inner.classList.remove("hover-active");
+      activeItem = null;
+    }
+  }
+
+  // Attach listeners to items
+  items.forEach((item) => {
+    item.addEventListener("pointerenter", () => {
+      activate(item);
+    });
+
+    item.addEventListener("pointerleave", () => {
+      if (leaveTimeout) clearTimeout(leaveTimeout);
+      // Short grace period while moving across item margins/gutters
+      leaveTimeout = setTimeout(() => {
+        deactivate();
+      }, 80);
+    });
+  });
+
+  // Container-level pointerleave for immediate deactivation when truly exiting the grid
+  container.addEventListener("pointerleave", () => {
+    if (leaveTimeout) clearTimeout(leaveTimeout);
+    deactivate();
+  });
+
+  // Clean-up on window blur / mouse leave
+  document.addEventListener("mouseleave", () => {
+    if (leaveTimeout) clearTimeout(leaveTimeout);
+    deactivate();
+  });
+
+  // Reposition immediately on window resize without lag
+  window.addEventListener("resize", () => {
+    if (isInside && activeItem) {
+      updateIndicator(activeItem, true);
+    }
+  });
+
+  const trackerInstance = {
+    reset: deactivate,
+    recalculate: () => {
+      if (isInside && activeItem) {
+        updateIndicator(activeItem, true);
+      }
+    }
+  };
+
+  hoverTrackers.push(trackerInstance);
+  return trackerInstance;
+}
+
+function setupSectionHoverTrackers() {
+  // 1. Services Section
+  const serviceSection = document.getElementById("services");
+  if (serviceSection) {
+    const firstServiceItem = serviceSection.querySelector(".service-item");
+    const serviceRow = firstServiceItem ? firstServiceItem.closest(".row") : null;
+    if (serviceRow) {
+      initSmoothHoverTracker({
+        container: serviceRow,
+        itemSelector: ".service-item",
+        innerSelector: ".service-item-inner",
+        indicatorClass: "service-hover-indicator",
+        elevateOnHover: false
+      });
+    }
+  }
+
+  // 2. Portfolio Section
+  const portfolioSection = document.getElementById("portfolio");
+  if (portfolioSection) {
+    const firstPortfolioItem = portfolioSection.querySelector(".portfolio-item");
+    const portfolioRow = firstPortfolioItem ? firstPortfolioItem.closest(".row") : null;
+    if (portfolioRow) {
+      initSmoothHoverTracker({
+        container: portfolioRow,
+        itemSelector: ".portfolio-item",
+        innerSelector: ".portfolio-item-inner",
+        indicatorClass: "portfolio-hover-indicator",
+        elevateOnHover: true,
+        elevationPx: 4
+      });
+    }
+  }
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", setupSectionHoverTrackers);
+} else {
+  setupSectionHoverTrackers();
+}
+
 
