@@ -1297,11 +1297,16 @@ html:not(.dark) .progress-bar-track
   border-radius: 10px;
   padding: 20px 15px;
   text-align: center;
-  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
   width: 100%;
   flex: 1;
+  position: relative;
+  z-index: 1;
 }
-.service .service-item .service-item-inner:hover
+.service .service-item .service-item-inner:hover,
+.service .service-item .service-item-inner.hover-active
 {
   box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
 }
@@ -1313,20 +1318,22 @@ html:not(.dark) .progress-bar-track
   display: block;
   margin: 0 auto 30px;
   text-align: center;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .service .service-item .service-item-inner .icon .fa
 {
   font-size: 40px;
   line-height: 60px;
   color: var(--skin-color);
-  transition: color 0.3s ease, font-size 0.3s ease;
+  transition: color 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), font-size 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.service .service-item .service-item-inner:hover .icon
+.service .service-item .service-item-inner:hover .icon,
+.service .service-item .service-item-inner.hover-active .icon
 {
   background: var(--skin-color);
 }
-.service .service-item .service-item-inner:hover .icon .fa
+.service .service-item .service-item-inner:hover .icon .fa,
+.service .service-item .service-item-inner.hover-active .icon .fa
 {
   font-size: 25px;
   color: #ffffff;
@@ -1421,10 +1428,11 @@ html:not(.dark) .progress-bar-track
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
-              border-color 0.3s ease,
-              box-shadow 0.3s ease;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
   position: relative;
+  z-index: 1;
 }
 html:not(.dark) .portfolio .portfolio-item-inner
 {
@@ -1432,13 +1440,15 @@ html:not(.dark) .portfolio .portfolio-item-inner
   border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow: 0 8px 24px -5px rgba(0, 0, 0, 0.06);
 }
-.portfolio .portfolio-item-inner:hover
+.portfolio .portfolio-item-inner:hover,
+.portfolio .portfolio-item-inner.hover-active
 {
   transform: translateY(-4px);
   border-color: color-mix(in srgb, var(--skin-color) 32%, transparent);
   box-shadow: 0 14px 30px -8px rgba(0, 0, 0, 0.5), 0 0 14px -3px color-mix(in srgb, var(--skin-color) 16%, transparent);
 }
-html:not(.dark) .portfolio .portfolio-item-inner:hover
+html:not(.dark) .portfolio .portfolio-item-inner:hover,
+html:not(.dark) .portfolio .portfolio-item-inner.hover-active
 {
   border-color: color-mix(in srgb, var(--skin-color) 32%, #cbd5e1 68%);
   box-shadow: 0 12px 26px -6px rgba(0, 0, 0, 0.08), 0 0 10px -2px color-mix(in srgb, var(--skin-color) 12%, transparent);
@@ -1467,9 +1477,10 @@ html:not(.dark) .portfolio .portfolio-item-inner .portfolio-img
   object-fit: cover;
   object-position: top center;
   display: block;
-  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.portfolio .portfolio-item-inner:hover .portfolio-img img
+.portfolio .portfolio-item-inner:hover .portfolio-img img,
+.portfolio .portfolio-item-inner.hover-active .portfolio-img img
 {
   transform: scale(1.03);
 }
