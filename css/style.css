@@ -1711,6 +1711,52 @@ html:not(.dark) .portfolio .project-btn.btn-live:hover
 {
   padding: 10px 0 20px 0;
 }
+
+/* ==========================================================================
+   SMOOTH CURSOR-MOVE HOVER INDICATORS (PORTFOLIO & SERVICES)
+   ========================================================================== */
+.smooth-hover-indicator
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  box-sizing: border-box;
+  will-change: transform, opacity, width, height;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+              width 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+              height 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+              opacity 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Portfolio Smooth Indicator */
+.portfolio-hover-indicator
+{
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--skin-color) 40%, transparent);
+  box-shadow: 0 14px 30px -8px rgba(0, 0, 0, 0.45), 0 0 16px -2px color-mix(in srgb, var(--skin-color) 22%, transparent);
+}
+html:not(.dark) .portfolio-hover-indicator
+{
+  border-color: color-mix(in srgb, var(--skin-color) 45%, #cbd5e1 55%);
+  box-shadow: 0 12px 26px -6px rgba(0, 0, 0, 0.08), 0 0 14px -2px color-mix(in srgb, var(--skin-color) 18%, transparent);
+}
+
+/* Service Smooth Indicator */
+.service-hover-indicator
+{
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--skin-color) 35%, transparent);
+  box-shadow: 0 0 24px rgba(48, 46, 77, 0.18), 0 0 14px -2px color-mix(in srgb, var(--skin-color) 16%, transparent);
+}
+html:not(.dark) .service-hover-indicator
+{
+  border-color: color-mix(in srgb, var(--skin-color) 35%, #cbd5e1 65%);
+  box-shadow: 0 8px 22px rgba(48, 46, 77, 0.12), 0 0 12px -2px color-mix(in srgb, var(--skin-color) 14%, transparent);
+}
+
 /* Unwanted internal overflow restriction removed */
 /* ==========================================================================
    CONTACT SECTION REDESIGN (AWARDS-LEVEL DARK CREATIVE PORTFOLIO)
