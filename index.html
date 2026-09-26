@@ -219,7 +219,7 @@
                       </div>
                       <div class="info-item">
                         <p><i class="fa-solid fa-globe info-icon"></i> <strong>Website :</strong>
-                          <span>www.domain.com</span></p>
+                          <a href="https://sauryamanbisen-art.github.io/dev-portfolio/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;"><span>sauryamanbisen-art.github.io</span></a></p>
                       </div>
                       <div class="info-item">
                         <p><i class="fa-solid fa-envelope info-icon"></i> <strong>Email :</strong>
@@ -642,7 +642,10 @@
             <div class="portfolio-item padd-15">
               <div class="portfolio-item-inner">
                 <div class="portfolio-img">
-                  <img src="./image/Webpage/Developer Email-image.png" alt="Developer Email">
+                  <picture>
+                    <source srcset="./image/Webpage/Developer Email-image.webp" type="image/webp">
+                    <img src="./image/Webpage/Developer Email-image.webp" alt="Developer Email" loading="lazy" decoding="async" width="800" height="454">
+                  </picture>
                 </div>
                 <div class="portfolio-info">
                   <div class="portfolio-tags">
@@ -673,7 +676,10 @@
             <div class="portfolio-item padd-15">
               <div class="portfolio-item-inner">
                 <div class="portfolio-img">
-                  <img src="./image/Webpage/TripToDhaba-image.png" alt="TripToDhaba - Dhaba Discovery">
+                  <picture>
+                    <source srcset="./image/Webpage/TripToDhaba-image.webp" type="image/webp">
+                    <img src="./image/Webpage/TripToDhaba-image.webp" alt="TripToDhaba - Dhaba Discovery" loading="lazy" decoding="async" width="800" height="455">
+                  </picture>
                 </div>
                 <div class="portfolio-info">
                   <div class="portfolio-tags">
@@ -704,7 +710,10 @@
             <div class="portfolio-item padd-15">
               <div class="portfolio-item-inner">
                 <div class="portfolio-img">
-                  <img src="./image/Webpage/Gym Dashboard-image.png" alt="Gym Dashboard">
+                  <picture>
+                    <source srcset="./image/Webpage/Gym Dashboard-image.webp" type="image/webp">
+                    <img src="./image/Webpage/Gym Dashboard-image.webp" alt="Gym Dashboard" loading="lazy" decoding="async" width="800" height="475">
+                  </picture>
                 </div>
                 <div class="portfolio-info">
                   <div class="portfolio-tags">
@@ -735,7 +744,10 @@
             <div class="portfolio-item padd-15">
               <div class="portfolio-item-inner">
                 <div class="portfolio-img">
-                  <img src="./image/Webpage/Real Estate image.jpg" alt="Real Estate">
+                  <picture>
+                    <source srcset="./image/Webpage/Real Estate image.webp" type="image/webp">
+                    <img src="./image/Webpage/Real Estate image.webp" alt="Real Estate" loading="lazy" decoding="async" width="800" height="450">
+                  </picture>
                 </div>
                 <div class="portfolio-info">
                   <div class="portfolio-tags">
@@ -766,7 +778,10 @@
             <div class="portfolio-item padd-15">
               <div class="portfolio-item-inner">
                 <div class="portfolio-img">
-                  <img src="./image/Webpage/Product-Catalog.png" alt="Product Catalog">
+                  <picture>
+                    <source srcset="./image/Webpage/Product-Catalog.webp" type="image/webp">
+                    <img src="./image/Webpage/Product-Catalog.webp" alt="Product Catalog" loading="lazy" decoding="async" width="800" height="455">
+                  </picture>
                 </div>
                 <div class="portfolio-info">
                   <div class="portfolio-tags">
@@ -797,7 +812,10 @@
             <div class="portfolio-item padd-15">
               <div class="portfolio-item-inner">
                 <div class="portfolio-img">
-                  <img src="./image/Webpage/RouteLine-Travelling-Project.png" alt="RouteLine-Traveling-Project">
+                  <picture>
+                    <source srcset="./image/Webpage/RouteLine-Travelling-Project.webp" type="image/webp">
+                    <img src="./image/Webpage/RouteLine-Travelling-Project.webp" alt="RouteLine-Traveling-Project" loading="lazy" decoding="async" width="800" height="455">
+                  </picture>
                 </div>
                 <div class="portfolio-info">
                   <div class="portfolio-tags">
@@ -924,7 +942,7 @@
                     </div>
                     <div class="card-info">
                       <span class="card-label">Website</span>
-                      <span class="card-value">www.domain.com</span>
+                      <span class="card-value">sauryamanbisen-art.github.io</span>
                     </div>
                   </div>
                   <div class="card-arrow-wrap">
@@ -1070,33 +1088,33 @@
 
                   <!-- Subject Field (Custom Dropdown) -->
                   <div class="input-field-group full-width">
-                    <label class="field-label">Subject <span class="required-star">*</span></label>
+                    <label class="field-label" id="subjectLabel" for="userSubject">Subject <span class="required-star">*</span></label>
                     <input type="hidden" id="userSubject" name="subject">
                     <div class="custom-select-container" id="subjectSelect">
-                      <div class="custom-select-trigger" tabindex="0">
-                        <i class="fa-solid fa-list-ul field-icon"></i>
+                      <div class="custom-select-trigger" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="subjectOptionsList" aria-labelledby="subjectLabel">
+                        <i class="fa-solid fa-list-ul field-icon" aria-hidden="true"></i>
                         <span class="custom-select-value" data-placeholder="true">Select a subject</span>
-                        <i class="fa-solid fa-chevron-down select-chevron"></i>
+                        <i class="fa-solid fa-chevron-down select-chevron" aria-hidden="true"></i>
                       </div>
-                      <div class="custom-select-options">
-                        <div class="custom-option" data-value="Project Collaboration">
-                          <i class="fa-solid fa-handshake option-icon"></i>
+                      <div class="custom-select-options" id="subjectOptionsList" role="listbox" aria-labelledby="subjectLabel" tabindex="-1">
+                        <div class="custom-option" role="option" tabindex="0" aria-selected="false" data-value="Project Collaboration">
+                          <i class="fa-solid fa-handshake option-icon" aria-hidden="true"></i>
                           <span>Project Collaboration</span>
                         </div>
-                        <div class="custom-option" data-value="Freelance Inquiry">
-                          <i class="fa-solid fa-briefcase option-icon"></i>
+                        <div class="custom-option" role="option" tabindex="0" aria-selected="false" data-value="Freelance Inquiry">
+                          <i class="fa-solid fa-briefcase option-icon" aria-hidden="true"></i>
                           <span>Freelance Inquiry</span>
                         </div>
-                        <div class="custom-option" data-value="Job Opportunity">
-                          <i class="fa-solid fa-user-tie option-icon"></i>
+                        <div class="custom-option" role="option" tabindex="0" aria-selected="false" data-value="Job Opportunity">
+                          <i class="fa-solid fa-user-tie option-icon" aria-hidden="true"></i>
                           <span>Job Opportunity</span>
                         </div>
-                        <div class="custom-option" data-value="General Discussion">
-                          <i class="fa-regular fa-comments option-icon"></i>
+                        <div class="custom-option" role="option" tabindex="0" aria-selected="false" data-value="General Discussion">
+                          <i class="fa-regular fa-comments option-icon" aria-hidden="true"></i>
                           <span>General Discussion</span>
                         </div>
-                        <div class="custom-option" data-value="Other">
-                          <i class="fa-solid fa-pen option-icon"></i>
+                        <div class="custom-option" role="option" tabindex="0" aria-selected="false" data-value="Other">
+                          <i class="fa-solid fa-pen option-icon" aria-hidden="true"></i>
                           <span>Other</span>
                         </div>
                       </div>
@@ -1104,8 +1122,8 @@
                     <!-- Other subject text input (shown only when "Other" is selected) -->
                     <div class="other-subject-wrap" id="otherSubjectWrap" style="display:none;">
                       <div class="field-control-wrap" style="margin-top: 10px;">
-                        <i class="fa-solid fa-pen-fancy field-icon"></i>
-                        <input type="text" id="otherSubjectInput" class="field-input" placeholder="Type your subject...">
+                        <i class="fa-solid fa-pen-fancy field-icon" aria-hidden="true"></i>
+                        <input type="text" id="otherSubjectInput" class="field-input" placeholder="Type your subject..." aria-label="Specify custom subject">
                       </div>
                     </div>
                   </div>
