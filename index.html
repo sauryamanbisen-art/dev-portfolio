@@ -5,8 +5,24 @@
   <meta charset="UTF-8">
   <meta name="google-site-verification" content="qL2Si7MkiYhWj_JwSBSmsazDQK-DJ_w3QrXzSRdFBfI" />
   <meta name="author" content="Sauryaman Bisen">
+  <meta name="description" content="Sauryaman Bisen — Frontend-focused Web Developer and Computer Science student. Explore my modern web applications, interactive UI projects, and technical skills.">
+  <meta name="keywords" content="Sauryaman Bisen, Frontend Developer, FullStack Developer, Web Designer, Portfolio, React, JavaScript, CSS">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Sauryaman Bisen | Developer Portfolio">
+  <meta property="og:description" content="Frontend-focused Web Developer building clean, responsive, and user-friendly web applications.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sauryamanbisen-art.github.io/dev-portfolio/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@SauryamanBisen">
   <title>Sauryaman | Portfolio</title>
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2246%22 fill=%22%23151515%22 stroke=%22%23ec1839%22 stroke-width=%228%22/><text x=%2250%22 y=%2263%22 font-family=%22system-ui,sans-serif%22 font-size=%2240%22 font-weight=%22bold%22 fill=%22%23ffffff%22 text-anchor=%22middle%22>SB</text></svg>" type="image/svg+xml">
+  <!-- Fonts Preconnect & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
   <!-- CSS File -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/skins/color-01.css">
@@ -96,7 +112,7 @@
       <ul class="nav">
         <li><a href="#home" class="active"><i class="fa fa-home"></i> Home</a></li>
         <li><a href="#about"><i class="fa fa-user"></i> About</a></li>
-        <li><a href="#services"><i class="fa fa-list"></i> Servies</a></li>
+        <li><a href="#services"><i class="fa fa-list"></i> Services</a></li>
         <li><a href="#portfolio"><i class="fa fa-briefcase"></i> Portfolio</a></li>
         <li><a href="#contact"><i class="fa fa-comments"></i> Contact</a></li>
       </ul>
@@ -148,7 +164,10 @@
                 <span class="hero-corner corner-br"></span>
                 <div class="hero-image-glow"></div>
                 <div class="hero-image-frame">
-                  <img src="image/ASCII Art_Saurya.png" alt="Sauryaman Bisen" class="hero-portrait">
+                  <picture>
+                    <source srcset="image/ASCII Art_Saurya.webp" type="image/webp">
+                    <img src="image/ASCII Art_Saurya.webp" alt="Sauryaman Bisen" class="hero-portrait" width="800" height="1065" fetchpriority="high" decoding="async">
+                  </picture>
                 </div>
               </div>
             </div>
@@ -182,7 +201,7 @@
                     <h2>About Me</h2>
                   </div>
                   <div class="about-text">
-                    <h3>I'm Sauryaman Bisen and <span>Web Developer</span></h3>
+                    <h3>I'm Sauryaman Bisen and a <span>Web Developer</span></h3>
                     <p>I'm Sauryaman, a dedicated B.Tech CSE student at PW Institute Of Innovation. I enjoy creating
                       websites, solving problems, and exploring software development. Currently learning full-stack
                       development, passionate about building creative and impactful web projects, and always excited to
