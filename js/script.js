@@ -1,3 +1,16 @@
+// --- HOVER TRACKERS REGISTRY (Hoisted to prevent any TDZ ReferenceErrors) ---
+var hoverTrackers = [];
+
+function resetAllHoverTrackers() {
+  if (Array.isArray(hoverTrackers)) {
+    hoverTrackers.forEach((tracker) => {
+      if (tracker && typeof tracker.reset === "function") {
+        tracker.reset();
+      }
+    });
+  }
+}
+
 // --- PRELOADER LOGIC ---
 let preloaderStarted = false;
 
@@ -10,37 +23,29 @@ function startPreloaderTransition() {
   const preloaderSkeleton = document.getElementById("preloader-skeleton");
 
   if (preloader) {
+    // Elegant, responsive 180ms breather before fading out
     setTimeout(() => {
       preloader.classList.add("fade-out");
-      setTimeout(() => {
-        if (preloader) preloader.remove();
-        setTimeout(() => {
-          if (preloaderSkeleton) {
-            preloaderSkeleton.classList.add("fade-out");
-            setTimeout(() => {
-              if (preloaderSkeleton) preloaderSkeleton.remove();
-            }, 600);
-          }
-        }, 800);
-      }, 600);
-    }, 800);
-  } else if (preloaderSkeleton) {
-    setTimeout(() => {
       if (preloaderSkeleton) {
         preloaderSkeleton.classList.add("fade-out");
-        setTimeout(() => {
-          if (preloaderSkeleton) preloaderSkeleton.remove();
-        }, 600);
       }
-    }, 800);
+      setTimeout(() => {
+        if (preloader && preloader.parentNode) preloader.remove();
+        if (preloaderSkeleton && preloaderSkeleton.parentNode) preloaderSkeleton.remove();
+      }, 380);
+    }, 180);
+  } else if (preloaderSkeleton) {
+    preloaderSkeleton.classList.add("fade-out");
+    setTimeout(() => {
+      if (preloaderSkeleton && preloaderSkeleton.parentNode) preloaderSkeleton.remove();
+    }, 380);
   }
 }
 
-// Safety fallback: if the page takes more than 3 seconds to fully trigger the 'load' event,
-// force-start the preloader transition so the user is never stuck on a black screen.
+// Safety fallback: if the page takes more than 1.5 seconds, release the preloader immediately
 const fallbackTimeout = setTimeout(() => {
   startPreloaderTransition();
-}, 3000);
+}, 1500);
 
 if (document.readyState === "complete") {
   startPreloaderTransition();
@@ -51,9 +56,9 @@ if (document.readyState === "complete") {
 
 /* typing animation */
 const typingElement = document.querySelector(".typing");
-if (typingElement) {
+if (typingElement && typeof Typed !== "undefined") {
   var typed = new Typed(".typing", {
-    strings: ["Web Designer", "FullStack Developer", "DevOps Engineer","Tech Learner"],
+    strings: ["Web Designer", "FullStack Developer", "DevOps Engineer", "Tech Learner"],
     typeSpeed: 100,
     backSpeed: 60,
     loop: true
@@ -79,7 +84,7 @@ const sectionIndexMap = {
 
 let isTransitioning = false;
 
-function navigateToSection(targetId) {
+function navigateToSection(targetId, updateHistory = true) {
   if (!targetId) return;
 
   // Collision guard: ignore rapid clicks while a transition is active
@@ -94,9 +99,7 @@ function navigateToSection(targetId) {
   isTransitioning = true;
 
   // Cleanly reset any active card hover states and indicators
-  if (typeof resetAllHoverTrackers === "function") {
-    resetAllHoverTrackers();
-  }
+  resetAllHoverTrackers();
 
   // Determine navigation direction (forward vs backward)
   const currentIndex = currentSection ? (sectionIndexMap[currentSection.id] || 1) : 1;
@@ -124,9 +127,9 @@ function navigateToSection(targetId) {
     asideSectionToggleBtn();
   }
 
-  // 4. Update browser URL history without causing reload
-  if (history.replaceState) {
-    history.replaceState(null, null, targetId === "home" ? window.location.pathname + window.location.search : `#${targetId}`);
+  // 4. Update browser URL history
+  if (updateHistory && history.pushState) {
+    history.pushState({ section: targetId }, "", targetId === "home" ? window.location.pathname + window.location.search : `#${targetId}`);
   }
 
   // 5. Ensure theme controls pill is visible at top of target section
@@ -326,6 +329,9 @@ for (let i = 0; i < totalNavList; i++) {
     // If a specific section was linked in the URL hash, navigate to it directly without animation
     if (hash && sectionIndexMap[hash] && hash !== "home") {
       showSectionDirect(hash);
+      if (history.replaceState) {
+        history.replaceState({ section: hash }, "", `#${hash}`);
+      }
       return;
     }
 
@@ -334,9 +340,9 @@ for (let i = 0; i < totalNavList; i++) {
     const currentActiveId = activeEl ? activeEl.id : "home";
     syncSectionProgress(currentActiveId);
     
-    // Clear stale hash if Home is the active section on screen
-    if (history.replaceState && currentActiveId === "home" && window.location.hash) {
-      history.replaceState(null, null, window.location.pathname + window.location.search);
+    // Set initial history state
+    if (history.replaceState) {
+      history.replaceState({ section: currentActiveId }, "", currentActiveId === "home" ? window.location.pathname + window.location.search : `#${currentActiveId}`);
     }
   }
 
@@ -392,11 +398,21 @@ for (let i = 0; i < totalNavList; i++) {
   });
   window.addEventListener("scroll", handleSectionScroll, { passive: true, capture: true });
 
-  // Sync on browser back/forward hashchange
+  // Sync on browser back/forward buttons (popstate & hashchange)
+  window.addEventListener("popstate", (e) => {
+    const targetSection = (e.state && e.state.section) || window.location.hash.replace("#", "") || "home";
+    if (targetSection && sectionIndexMap[targetSection]) {
+      navigateToSection(targetSection, false);
+    }
+  });
+
   window.addEventListener("hashchange", () => {
     const hash = window.location.hash.replace("#", "") || "home";
     if (hash && sectionIndexMap[hash]) {
-      navigateToSection(hash);
+      const activeEl = document.querySelector(".section.active");
+      if (!activeEl || activeEl.id !== hash) {
+        navigateToSection(hash, false);
+      }
     }
   });
 
@@ -440,168 +456,222 @@ for (let i = 0; i < totalNavList; i++) {
     }
   });
 
-(function () {
-  if (typeof emailjs === "undefined") {
-    console.warn("EmailJS is not loaded.");
-    return;
-  }
-  emailjs.init("1r-mX1fIHAfMNNmWi");
-  const form = document.getElementById("contact-form");
-  const sendBtn = document.getElementById("sendBtn");
-
-  if (!form || !sendBtn) return;
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    // validation check
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
-    // Validate custom subject dropdown
-    const subjectInput = document.getElementById("userSubject");
-    if (subjectInput && !subjectInput.value) {
-      const selectContainer = document.getElementById("subjectSelect");
-      if (selectContainer) {
-        selectContainer.classList.add("open");
-        selectContainer.querySelector(".custom-select-trigger").focus();
-      }
-      return;
-    }
-
-    // Disable button + show loading
-    sendBtn.disabled = true;
-    sendBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Sending...</span>';
-
-    emailjs.sendForm(
-      "service_7dzp7p5",
-      "template_ffuv9pj",
-      form
-    )
-    .then(() => {
-      sendBtn.innerHTML = '<i class="fa-solid fa-check"></i> <span>Message Sent ✅</span>';
-      form.reset();
-
-      // Also reset the custom subject dropdown UI
-      const csVal = document.querySelector(".custom-select-value");
-      const csOpts = document.querySelectorAll(".custom-option");
-      const csHidden = document.getElementById("userSubject");
-      const csOtherWrap = document.getElementById("otherSubjectWrap");
-      const csOtherInput = document.getElementById("otherSubjectInput");
-      if (csVal) { csVal.textContent = "Select a subject"; csVal.setAttribute("data-placeholder", "true"); }
-      csOpts.forEach(function(o) { o.classList.remove("selected"); });
-      if (csHidden) csHidden.value = "";
-      if (csOtherWrap) csOtherWrap.style.display = "none";
-      if (csOtherInput) csOtherInput.value = "";
-
-      // enable again after 3 sec
-      setTimeout(() => {
-        sendBtn.disabled = false;
-        sendBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span>Send Message</span> <i class="fa-solid fa-arrow-right btn-arrow"></i>';
-      }, 3000);
-    })
-    .catch((error) => {
-      console.error(error);
-
-      sendBtn.disabled = false;
-      sendBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span>Send Message</span> <i class="fa-solid fa-arrow-right btn-arrow"></i>';
-
-      alert("❌ Failed to send message");
-    });
-
-  });
-
-})();
-
-
 /* ==========================================
-   Custom Subject Select Dropdown Logic
+   Contact Form & Custom Subject Select Logic
    ========================================== */
 (function () {
+  const form = document.getElementById("contact-form");
+  const sendBtn = document.getElementById("sendBtn");
   const container = document.getElementById("subjectSelect");
   const hiddenInput = document.getElementById("userSubject");
   const valueDisplay = container ? container.querySelector(".custom-select-value") : null;
-  const options = container ? container.querySelectorAll(".custom-option") : [];
+  const options = container ? Array.from(container.querySelectorAll(".custom-option")) : [];
   const trigger = container ? container.querySelector(".custom-select-trigger") : null;
   const otherWrap = document.getElementById("otherSubjectWrap");
   const otherInput = document.getElementById("otherSubjectInput");
 
-  if (!container || !hiddenInput || !valueDisplay || !trigger) return;
-
-  // Toggle dropdown open/close
-  trigger.addEventListener("click", function () {
-    container.classList.toggle("open");
-  });
-
-  // Keyboard support for trigger
-  trigger.addEventListener("keydown", function (e) {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      container.classList.toggle("open");
+  // Initialize EmailJS if library loaded
+  if (typeof emailjs !== "undefined") {
+    try {
+      emailjs.init("1r-mX1fIHAfMNNmWi");
+    } catch (e) {
+      console.warn("EmailJS initialization warning:", e);
     }
-    if (e.key === "Escape") {
-      container.classList.remove("open");
+  }
+
+  // Helper to open/close custom select
+  function toggleDropdown(open) {
+    if (!container || !trigger) return;
+    const shouldOpen = typeof open === "boolean" ? open : !container.classList.contains("open");
+    container.classList.toggle("open", shouldOpen);
+    trigger.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
+    if (shouldOpen) {
+      const selected = container.querySelector(".custom-option.selected") || options[0];
+      if (selected) selected.focus();
     }
-  });
+  }
 
-  // Option click handler
-  options.forEach(function (opt) {
-    opt.addEventListener("click", function () {
-      const val = opt.getAttribute("data-value");
+  function selectOption(opt) {
+    if (!opt || !valueDisplay || !hiddenInput) return;
+    const val = opt.getAttribute("data-value");
 
-      // Remove previous selected
-      options.forEach(function (o) { o.classList.remove("selected"); });
-      opt.classList.add("selected");
+    options.forEach((o) => {
+      o.classList.remove("selected");
+      o.setAttribute("aria-selected", "false");
+    });
+    opt.classList.add("selected");
+    opt.setAttribute("aria-selected", "true");
 
-      // Update display text
-      valueDisplay.textContent = val;
-      valueDisplay.removeAttribute("data-placeholder");
+    valueDisplay.textContent = val;
+    valueDisplay.removeAttribute("data-placeholder");
 
-      // Set hidden input value
-      hiddenInput.value = val;
+    hiddenInput.value = val;
+    toggleDropdown(false);
 
-      // Close dropdown
-      container.classList.remove("open");
-
-      // Show/hide other input
-      if (val === "Other") {
-        otherWrap.style.display = "block";
+    if (val === "Other") {
+      if (otherWrap) otherWrap.style.display = "block";
+      if (otherInput) {
+        otherInput.setAttribute("required", "required");
         otherInput.focus();
-      } else {
-        otherWrap.style.display = "none";
+      }
+    } else {
+      if (otherWrap) otherWrap.style.display = "none";
+      if (otherInput) {
+        otherInput.removeAttribute("required");
         otherInput.value = "";
       }
-    });
-  });
+    }
+  }
 
-  // Sync other input to hidden field
-  if (otherInput) {
-    otherInput.addEventListener("input", function () {
-      if (hiddenInput.value === "Other" || otherWrap.style.display !== "none") {
-        hiddenInput.value = otherInput.value || "Other";
+  if (container && trigger) {
+    // Click toggle
+    trigger.addEventListener("click", () => {
+      toggleDropdown();
+    });
+
+    // Keyboard navigation on trigger
+    trigger.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown") {
+        e.preventDefault();
+        toggleDropdown(true);
+      } else if (e.key === "Escape") {
+        toggleDropdown(false);
+      }
+    });
+
+    // Options keyboard and click handling
+    options.forEach((opt, index) => {
+      opt.addEventListener("click", () => {
+        selectOption(opt);
+      });
+
+      opt.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          selectOption(opt);
+          if (trigger) trigger.focus();
+        } else if (e.key === "ArrowDown") {
+          e.preventDefault();
+          const next = options[(index + 1) % options.length];
+          if (next) next.focus();
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          const prev = options[(index - 1 + options.length) % options.length];
+          if (prev) prev.focus();
+        } else if (e.key === "Home") {
+          e.preventDefault();
+          if (options[0]) options[0].focus();
+        } else if (e.key === "End") {
+          e.preventDefault();
+          if (options[options.length - 1]) options[options.length - 1].focus();
+        } else if (e.key === "Escape") {
+          e.preventDefault();
+          toggleDropdown(false);
+          if (trigger) trigger.focus();
+        }
+      });
+    });
+
+    // Sync other input to hidden field
+    if (otherInput) {
+      otherInput.addEventListener("input", () => {
+        if (hiddenInput && (hiddenInput.value === "Other" || (otherWrap && otherWrap.style.display !== "none"))) {
+          hiddenInput.value = otherInput.value.trim() || "Other";
+        }
+      });
+    }
+
+    // Close on outside click
+    document.addEventListener("click", (e) => {
+      if (!container.contains(e.target)) {
+        toggleDropdown(false);
       }
     });
   }
 
-  // Close on outside click
-  document.addEventListener("click", function (e) {
-    if (!container.contains(e.target)) {
-      container.classList.remove("open");
-    }
-  });
-
-  // Reset handler — when form resets, also reset custom select
-  const form = document.getElementById("contact-form");
-  if (form) {
-    form.addEventListener("reset", function () {
+  function resetFormAndCustomSelect() {
+    if (form) form.reset();
+    if (valueDisplay) {
       valueDisplay.textContent = "Select a subject";
       valueDisplay.setAttribute("data-placeholder", "true");
-      options.forEach(function (o) { o.classList.remove("selected"); });
-      hiddenInput.value = "";
-      otherWrap.style.display = "none";
+    }
+    options.forEach((o) => {
+      o.classList.remove("selected");
+      o.setAttribute("aria-selected", "false");
+    });
+    if (hiddenInput) hiddenInput.value = "";
+    if (otherWrap) otherWrap.style.display = "none";
+    if (otherInput) {
+      otherInput.removeAttribute("required");
       otherInput.value = "";
+    }
+    if (trigger) trigger.setAttribute("aria-expanded", "false");
+  }
+
+  // Form submission handling
+  if (form && sendBtn) {
+    form.addEventListener("reset", resetFormAndCustomSelect);
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // Check standard field validity
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Check custom subject dropdown validity
+      if (hiddenInput && !hiddenInput.value) {
+        toggleDropdown(true);
+        if (trigger) trigger.focus();
+        return;
+      }
+
+      // If 'Other' was selected, ensure user actually typed custom subject
+      if (hiddenInput && (hiddenInput.value === "Other" || (otherWrap && otherWrap.style.display !== "none"))) {
+        if (!otherInput || !otherInput.value.trim()) {
+          if (otherInput) {
+            otherInput.focus();
+            otherInput.reportValidity();
+          }
+          return;
+        }
+        hiddenInput.value = otherInput.value.trim();
+      }
+
+      if (typeof emailjs === "undefined") {
+        alert("⚠️ Email service is temporarily unavailable. Please email me directly at sauryamanbisen@gmail.com");
+        return;
+      }
+
+      // Disable button + show loading state
+      sendBtn.disabled = true;
+      sendBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Sending...</span>';
+
+      emailjs.sendForm(
+        "service_7dzp7p5",
+        "template_ffuv9pj",
+        form
+      )
+      .then(() => {
+        sendBtn.innerHTML = '<i class="fa-solid fa-check"></i> <span>Message Sent ✅</span>';
+        resetFormAndCustomSelect();
+
+        // Restore send button after 3 seconds
+        setTimeout(() => {
+          sendBtn.disabled = false;
+          sendBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span>Send Message</span> <i class="fa-solid fa-arrow-right btn-arrow"></i>';
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error("EmailJS send error:", error);
+
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span>Send Message</span> <i class="fa-solid fa-arrow-right btn-arrow"></i>';
+
+        alert("❌ Failed to send message. Please contact me directly at sauryamanbisen@gmail.com");
+      });
     });
   }
 })();
@@ -609,15 +679,6 @@ for (let i = 0; i < totalNavList; i++) {
 /* ==========================================================================
    Smooth Cursor-Move Hover Interaction Engine (Portfolio & Services)
    ========================================================================== */
-const hoverTrackers = [];
-
-function resetAllHoverTrackers() {
-  hoverTrackers.forEach((tracker) => {
-    if (tracker && typeof tracker.reset === "function") {
-      tracker.reset();
-    }
-  });
-}
 
 function initSmoothHoverTracker({
   container,
