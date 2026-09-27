@@ -494,26 +494,39 @@ ul
   margin-top: 30px;
   margin-bottom: 60px;
 }
-.hero-label
+/* Shared Signature Eyebrow Label (Home & Contact) */
+.hero-label,
+.contact-eyebrow
 {
   display: flex;
   align-items: center;
+  font-family: 'Times New Roman', Times, serif;
   font-size: 11px;
   letter-spacing: 2px;
   color: var(--text-black-700);
-  margin-bottom: 0;
+  margin-bottom: 14px;
   text-transform: uppercase;
   font-weight: 600;
+  padding: 0;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  width: fit-content;
 }
-.hero-label::before
+.hero-label::before,
+.contact-eyebrow::before
 {
   content: "";
   display: inline-block;
-  width: 25px;
+  width: 30px;
   height: 3px;
   background-color: var(--skin-color);
   margin-right: 12px;
   border-radius: 2px;
+  flex-shrink: 0;
+  transition: background-color 0.3s ease;
 }
 .hero-title
 {
@@ -1894,45 +1907,10 @@ html:not(.dark) .service-hover-indicator
   max-width: calc(55% - 18px);
 }
 
-/* Eyebrow Pill */
+/* Eyebrow Label spacing inside contact */
 .contact-eyebrow
 {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 14px;
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  margin-bottom: 14px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-html:not(.dark) .contact-eyebrow
-{
-  background: rgba(0, 0, 0, 0.04);
-  border-color: rgba(0, 0, 0, 0.1);
-}
-.contact-eyebrow .eyebrow-dot
-{
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--skin-color);
-  box-shadow: 0 0 8px var(--skin-color);
-}
-.contact-eyebrow .eyebrow-text
-{
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #cbd5e1;
-  line-height: 1;
-}
-html:not(.dark) .contact-eyebrow .eyebrow-text
-{
-  color: #475569;
+  margin-bottom: 12px;
 }
 
 /* Section Title spacing inside contact */
