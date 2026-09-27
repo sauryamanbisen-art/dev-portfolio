@@ -416,21 +416,21 @@ for (let i = 0; i < totalNavList; i++) {
     }
   });
 
-  const moreAboutBtn = document.querySelector(".btn[href='#about']");
-  if (moreAboutBtn) {
-    moreAboutBtn.addEventListener("click", function (e) {
+  document.querySelectorAll("a[href='#about']").forEach((btn) => {
+    btn.addEventListener("click", function (e) {
       e.preventDefault();
       navigateToSection("about");
     });
-  }
+  });
 
-  const hireMeBtn = document.querySelector(".hire-me");
-  if (hireMeBtn) {
-    hireMeBtn.addEventListener("click", function (e) {
+  document.querySelectorAll("a[href='#contact'], .hire-me").forEach((btn) => {
+    btn.addEventListener("click", function (e) {
       e.preventDefault();
       navigateToSection("contact");
     });
-  }
+  });
+
+  const asideOverlay = document.getElementById("asideOverlay");
 
   if (navTogglerBtn) {
     navTogglerBtn.addEventListener("click", () => {
@@ -438,19 +438,30 @@ for (let i = 0; i < totalNavList; i++) {
     });
   }
 
-  function asideSectionToggleBtn() {
-  aside.classList.toggle("open");
-  navTogglerBtn.classList.toggle("open");
-  for(let i=0; i<totalSection; i++ )
-  {
-    allSection[i].classList.toggle("open");
+  if (asideOverlay) {
+    asideOverlay.addEventListener("click", () => {
+      if (aside && aside.classList.contains("open")) {
+        asideSectionToggleBtn();
+      }
+    });
   }
+
+  function asideSectionToggleBtn() {
+    aside.classList.toggle("open");
+    navTogglerBtn.classList.toggle("open");
+    if (asideOverlay) {
+      asideOverlay.classList.toggle("open");
+    }
+    for(let i=0; i<totalSection; i++ )
+    {
+      allSection[i].classList.toggle("open");
+    }
   }
 
   // Close aside when clicking outside of it on mobile/tablet view
   document.addEventListener("click", (e) => {
     if (window.innerWidth < 1200 && aside.classList.contains("open")) {
-      if (!aside.contains(e.target) && !navTogglerBtn.contains(e.target)) {
+      if (!aside.contains(e.target) && !navTogglerBtn.contains(e.target) && (!asideOverlay || !asideOverlay.contains(e.target))) {
         asideSectionToggleBtn();
       }
     }

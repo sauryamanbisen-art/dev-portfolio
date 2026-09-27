@@ -22,12 +22,20 @@ html.theme-switching *::after
 {
   transition-duration: 0s !important;
 }
+html
+{
+  overflow-x: hidden;
+  width: 100%;
+}
 body
 {
   line-height: 1.5;
   font-size: 16px;
   font-family: 'Times New Roman', Times, serif;
   background-color: var(--bg-black-900);
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 *
 {
@@ -57,6 +65,7 @@ ul
 {
   background: var(--bg-black-900);
   min-height: 100vh;
+  min-height: 100dvh;
   display: block;
   padding: 0 30px;
   opacity: 0;
@@ -70,10 +79,43 @@ ul
   z-index: 0;
   overflow-y: auto;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform: translate3d(0, 0, 0);
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+/* Mobile Drawer Backdrop Overlay */
+.aside-overlay
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+}
+.aside-overlay.open
+{
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+@media (min-width: 1200px)
+{
+  .aside-overlay
+  {
+    display: none !important;
+  }
 }
 .section.back-section
 {
@@ -295,8 +337,8 @@ ul
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10;
-  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  z-index: 1002;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, left 0.3s ease;
 }
 .aside .logo
 {
@@ -351,12 +393,16 @@ ul
   position: fixed;
   left: 300px;
   top: 20px;
-  border-radius: 5px;
+  z-index: 1003;
+  border-radius: 8px;
   background: var(--bg-black-100);
   display: none;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease, border-color 0.3s ease, left 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background-color 0.3s ease, border-color 0.3s ease, left 0.3s ease, top 0.3s ease;
 }
 .aside .nav-toggler span
 {
