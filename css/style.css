@@ -489,10 +489,78 @@ ul
   max-width: 60%;
   padding-left: 2%;
 }
-.home .home-info .btn
+.hero-cta-group
 {
-  margin-top: 30px;
-  margin-bottom: 60px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.hero-btn-primary
+{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 28px;
+  background: var(--skin-color);
+  color: #ffffff !important;
+  border-radius: 40px;
+  font-size: 14.5px;
+  font-weight: 600;
+  margin: 0 !important;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 6px 20px -3px color-mix(in srgb, var(--skin-color) 45%, transparent);
+  text-decoration: none;
+}
+.hero-btn-primary:hover
+{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -3px color-mix(in srgb, var(--skin-color) 60%, transparent);
+}
+.hero-btn-primary i
+{
+  font-size: 13px;
+  transition: transform 0.25s ease;
+}
+.hero-btn-primary:hover i
+{
+  transform: translateX(3px);
+}
+.hero-btn-secondary
+{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 26px;
+  background: transparent;
+  color: var(--text-black-900);
+  border-radius: 40px;
+  font-size: 14.5px;
+  font-weight: 600;
+  margin: 0 !important;
+  border: 1.5px solid var(--bg-black-50);
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  text-decoration: none;
+}
+.hero-btn-secondary:hover
+{
+  border-color: var(--skin-color);
+  color: var(--skin-color);
+  transform: translateY(-2px);
+}
+.hero-btn-secondary i
+{
+  font-size: 12px;
+  transition: transform 0.25s ease;
+}
+.hero-btn-secondary:hover i
+{
+  transform: translate(2px, -2px);
 }
 /* Shared Signature Eyebrow Label (Home & Contact) */
 .hero-label,
@@ -520,7 +588,7 @@ ul
 {
   content: "";
   display: inline-block;
-  width: 30px;
+  width: 25px;
   height: 3px;
   background-color: var(--skin-color);
   margin-right: 12px;
@@ -533,7 +601,7 @@ ul
   font-size: 42px;
   line-height: 1.3;
   margin-bottom: 20px;
-  margin-top: 100px;
+  margin-top: 30px;
   font-weight: 700;
   color: var(--text-black-900);
 }
@@ -550,12 +618,12 @@ ul
   font-size: 15px;
   line-height: 1.7;
   color: var(--text-black-700);
-  margin-bottom: 35px;
+  margin-bottom: 25px;
   max-width: 95%;
 }
 .hero-quote-card
 {
-  margin-top: 30px;
+  margin-top: 20px;
   background-color: var(--bg-black-50);
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-left: 4px solid var(--skin-color);
@@ -563,7 +631,8 @@ ul
   padding: 15px 20px;
   display: flex;
   gap: 15px;
-  height: 110px;
+  min-height: auto;
+  height: auto;
   max-width: 450px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
 }
@@ -581,7 +650,7 @@ ul
 }
 .hero-quote-card .quote-text
 {
-  font-size: 20px;
+  font-size: 18px;
   font-style: italic;
   color: var(--text-black-900);
   margin-bottom: 8px;
