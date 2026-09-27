@@ -305,10 +305,64 @@ html:not(.dark) .accent-option.active {
 .accent-option.color-4 { --swatch-color: #10b981; }
 .accent-option.color-5 { --swatch-color: #fa5b0f; }
 
-/* Responsive placement */
+/* Responsive placement and mobile scaling */
 @media (max-width: 575px) {
   .theme-controls {
-    top: 18px;
-    right: 18px;
+    top: 16px;
+    right: 14px;
+  }
+  .theme-mode-pill {
+    height: 36px;
+    padding: 3px;
+    gap: 6px;
+  }
+  .theme-mode-pill .mode-btn {
+    width: 28px;
+    height: 28px;
+  }
+  .theme-mode-pill .mode-slider {
+    top: 3px;
+    left: 3px;
+    width: 28px;
+    height: 28px;
+  }
+  html.dark .theme-mode-pill .mode-slider {
+    transform: translateX(34px);
+  }
+  .theme-divider {
+    height: 18px;
+    margin: 0 8px;
+  }
+  .accent-picker-btn {
+    height: 36px;
+    padding: 3px 10px 3px 3px;
+  }
+  .accent-dropdown {
+    right: 0;
+    padding: 12px 14px 14px 14px;
+    max-width: calc(100vw - 28px);
+  }
+  .accent-dropdown .dropdown-arrow {
+    right: 32px;
+  }
+  .accent-options {
+    gap: 8px;
+  }
+  .accent-option {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 380px) {
+  .theme-controls {
+    top: 14px;
+    right: 10px;
+  }
+  .theme-divider {
+    margin: 0 5px;
+  }
+  .accent-picker-btn {
+    padding: 3px 7px 3px 3px;
   }
 }
